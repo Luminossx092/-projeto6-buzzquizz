@@ -1,7 +1,15 @@
-//CarregarTela1();
+CarregarTela1();
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1(){
+    const listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("id do usuario sei la"));
+    if(listaIdDeQuizzUsuario == null){
+        //document.querySelector(".Tela1 .DivBotaoCriarQuizz").classList.remove("Desaparece");
+    }
+    else {
+        document.querySelector(".ListaQuizzesUsuario").classList.remove("Desaparece")
+        RenderizarQuizzesDoUsuario();
+    }
     axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes")
     .then(RenderizarUltimosXQuizzesServidor())
     .catch();
@@ -12,27 +20,40 @@ function RenderizarUltimosXQuizzesServidor(resposta){
     //escolhe quantos elementos aparecer na tela1
     const ultimosXElementos = 12;
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
-    listaQuizzes.innerHTML = "";
+    //listaQuizzes.innerHTML = "";
     /*Na hora que fiz não tinha nenhum quiz, comentei para não ter erro
     for(let i = 0; i < ultimosXElementos; i++){
         const index = resposta[resposta.length];
         console.log(index);
         listaQuizzes.innerHTML += `
-            <article id="${index.id}"onclick="AbrirQuizz(id)" class="QuizzTela1">
+            <li id="${index.id}"onclick="AbrirQuizz(id)" class="QuizzTela1">
                 <figure>
                     <img src="${index.image}" alt="">
                 </figure>
                 <p>${index.title}</p>
-            </article>
+            </li>
         `
     }*/
 }
 
+function RenderizarQuizzesDoUsuario(){
+    
+}
 //recebe o id do quiz que é pra abrir na tela2
 function AbrirQuizz(Quizz){
     document.querySelector("main .Tela1").classList.add("Desaparece");
-    //carregar tela2....
+    //CarregarTela2();
 
+}
+
+function CarregarTela2(){
+
+
+
+}
+
+function CarregarTela3(){
+    document.querySelector("main .Tela1").classList.add("Desaparece");
 
 }
 

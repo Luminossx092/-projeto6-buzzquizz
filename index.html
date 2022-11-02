@@ -14,23 +14,38 @@
     </header>
     <main>
         <div class="Tela1">
-            <div class="DivBotaoCriarQuizz">
+            <div class="DivBotaoCriarQuizz Desaparece">
                 <p>Você não criou nenhum quizz ainda :(</p>
-                <button class="BotaoCriarQuizz">Criar Quizz</button>
+                <button onclick="CarregarTela3()" class="BotaoCriarQuizz">Criar Quizz</button>
             </div>
-            <section class="ListaQuizzes">
-                <h2>Todos os Quizzes</h2>
+            <section class="ListaQuizzesUsuario Desaparece">
+                <div class="SeusQuizzes">
+                    <h2>Seus Quizzes</h2>
+                    <button onclick="CarregarTela3()" class="BotaoCriarSeuQuizz"><ion-icon name="add-circle"></ion-icon></button>
+                </div>
                 <ul>
-                    <article id="numero" onclick="AbrirQuizz(id)" class="QuizzTela1">
+                    <li id="numero" onclick="AbrirQuizz(id)" class="QuizzTela1">
                         <figure>
                             <img src="./Simpsons.png" alt="">
                         </figure>
                         <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
-                    </article>
+                    </li>
+                </ul>
+            </section>
+            <section class="ListaQuizzes">
+                <h2>Todos os Quizzes</h2>
+                <ul>
+                    <li id="numero" onclick="AbrirQuizz(id)" class="QuizzTela1">
+                        <figure>
+                            <img src="./Simpsons.png" alt="">
+                        </figure>
+                        <p>Acerte os personagens corretos dos Simpsons e prove seu amor!</p>
+                    </li>
                 </ul>
             </section>
         </div>
     </main>
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <script src="script.js"></script>
 </body>
