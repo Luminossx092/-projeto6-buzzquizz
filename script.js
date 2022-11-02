@@ -4,7 +4,7 @@ CarregarTela1();
 function CarregarTela1(){
     const listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("id do usuario sei la"));
     if(listaIdDeQuizzUsuario == null){
-        //document.querySelector(".Tela1 .DivBotaoCriarQuizz").classList.remove("Desaparece");
+        document.querySelector(".Tela1 .DivBotaoCriarQuizz").classList.remove("Desaparece");
     }
     else {
         document.querySelector(".ListaQuizzesUsuario").classList.remove("Desaparece")
@@ -54,7 +54,7 @@ function CarregarTela2(){
 
 function CarregarTela3(){
     document.querySelector("main .Tela1").classList.add("Desaparece");
-
+    document.querySelector("main .Tela3").classList.remove("Desaparece");
 }
 
 //function só pra testar
