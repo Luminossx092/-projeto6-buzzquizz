@@ -56,6 +56,26 @@ function CarregarTela3(){
     document.querySelector("main .Tela3").classList.remove("Desaparece");
 }
 
+function VerificarInformacoesBasicasPergunta(){
+    const DadosInválidos = function(){alert("Dados inválidos, preencha os dados corretamente!");}
+
+    const tamanhoTitulo = document.querySelector(".Tela3 .TituloQuizz").value.length;
+    //const url = document.querySelector(".Tela3 .URLImagemQuizz");
+    const quantidadePerguntas = document.querySelector(".Tela3 .QuantidadePerguntasQuizz").value;
+    const niveis = document.querySelector(".Tela3 .QuantidadesNiveisQuizz").value;
+
+    if(tamanhoTitulo < 20 || tamanhoTitulo > 65 || quantidadePerguntas < 3 || niveis < 2){
+        DadosInválidos();
+        return;
+    }
+    try {
+        let url = new URL(document.querySelector(".Tela3 .URLImagemQuizz").value);
+      } catch(err) {
+        DadosInválidos;
+        return;
+      }
+    //CriarPerguntas();
+}
 //function só pra testar
 function Erro(){
     console.log("erro carregar tela1");
