@@ -40,15 +40,14 @@ function RenderizarQuizzesDoUsuario(){
     
 }
 //recebe o id do quiz que é pra abrir na tela2
-function AbrirQuizz(Quizz){
+function AbrirQuizz(idQuizz){
     document.querySelector("main .Tela1").classList.add("Desaparece");
-    //CarregarTela2();
+    CarregarTela2();
 
 }
 
 function CarregarTela2(){
-
-
+    document.querySelector("main .Tela2").classList.remove("Desaparece");
 
 }
 
