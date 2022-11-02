@@ -220,6 +220,8 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
     display: none;
 }
 
+/* COMEÇO CSS TELA 2*/
+
 .BannerQuizz {
     display: flex;
     align-items: center;
@@ -241,6 +243,14 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
     color: #FFFFFF;
 }
 
+.EscureceBanner {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.6;
+}
+
 .TelaQuizz {
     width: 760px;
     margin: 0 auto;
@@ -254,12 +264,26 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
 }
 
 .CaixaPergunta, .CaixaResultado {
+    box-sizing: border-box;
+    padding: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     height: 140px;
     background-color: #000;
     margin-bottom: 20px;
+}
+
+.CaixaPergunta.Primeira {
+    background-color: #434CA0;
+}
+
+.CaixaPergunta.Segunda {
+    background-color: #A0438D;
+}
+
+.CaixaPergunta.Terceira {
+    background-color: #009C22;
 }
 
 .TextoPergunta, .TextoResultado {
@@ -275,12 +299,40 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
     row-gap: 20px;
 }
 
+.RespostaCerta:hover, .RespostaErrada:hover {
+    cursor: pointer;
+}
+
+.RespostaErrada.NaoSelecionada:hover, .RespostaErrada.Selecionada:hover,
+.RespostaCerta.NaoSelecionada:hover, .RespostaCerta.Selecionada:hover {
+    cursor: default;
+}
+
+.RespostaErrada.NaoSelecionada {
+    opacity: 0.3;
+}
+
+.RespostaErrada.Selecionada .RespostaLegenda, 
+.RespostaErrada.NaoSelecionada .RespostaLegenda {
+    color: #FF4B4B;
+}
+
+.RespostaCerta.NaoSelecionada {
+    opacity: 0.3;
+}
+
+.RespostaCerta.Selecionada .RespostaLegenda, 
+.RespostaCerta.NaoSelecionada .RespostaLegenda {
+    color: #009C22;
+}
+
+
 .Respostas figure img{
     width: 330px;
     height: 175px;
 }
 
-.Respostas figure figcaption{
+.RespostaLegenda {
     font-weight: 700;
     font-size: 20px;
     color: #000;
@@ -317,6 +369,10 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
 .ReiniciarOuVoltar {
     width: 260px;
     margin: 0 auto;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .BotaoReiniciarQuizz {
@@ -335,6 +391,12 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
     text-align: center;
     color: #818181;
 }
+
+.BotaoReiniciarQuizz:hover, .VoltarHome:hover {
+    cursor: pointer;
+}
+
+/*FIM DO CSS TELA 2*/
 
 @media only screen and (max-width: 1100px) {
     main .DivBotaoCriarQuizz{
@@ -357,4 +419,61 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
         flex-direction: column;
         align-items: center;
     }
+
+    /*RESPONSIVIDADE TELA 2*/
+    .BannerQuizz {
+        width: 100vw;
+        height: 142px;
+    }
+    
+    .TituloBanner, .TextoPergunta, .TextoResultado {
+        font-size: 19px;
+        text-align: center;
+    }
+
+    .TelaQuizz {
+        width: 375px;
+    }
+
+    .CaixaQuizz {
+        width: 100%;
+        padding: 18px;
+    }
+
+    .CaixaPergunta {
+        height: 90px;
+    }
+
+    .RespostaCerta,.RespostaErrada {
+
+    }
+
+    .Respostas figure img {
+        width: 164px;
+        height: 113px;
+    }
+
+    .RespostaLegenda {
+        font-size: 13px;
+    }
+
+    .Resultado {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .Resultado img {
+        width: 100%;
+    }
+
+    .Resultado p {
+        font-size: 17px;
+        margin-top: 9px;
+    }
+
+    .BotaoReiniciarQuizz {
+        width: 220px;
+        height: 44px;
+    }
+    /*FIM DA RESPONSIVIDADE TELA 2*/
   }
