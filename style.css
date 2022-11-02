@@ -70,7 +70,8 @@ main .ListaQuizzes{
     width: auto;
     margin: 0 195px;
     margin-top: 77px;
-
+    /*display: flex;
+    flex-direction: column;*/
 }
 
 main .ListaQuizzes h2{
@@ -112,6 +113,25 @@ main .ListaQuizzes ul .QuizzTela1 p{
     bottom: 0;
     flex-wrap: wrap;
 }
-@media only screen and (max-width: 1100px) {
 
+.Desaparece{
+    display: none;
+}
+@media only screen and (max-width: 1100px) {
+    main .DivBotaoCriarQuizz{
+        width: 340px;
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+
+    main .ListaQuizzes{
+        width: 340px;
+        margin: 0 auto;
+        margin-top: 35px;
+    }
+
+    main .ListaQuizzes ul{
+        flex-direction: column;
+        align-items: center;
+    }
   }
