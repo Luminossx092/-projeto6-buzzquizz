@@ -92,10 +92,13 @@ function Erro() {
 
 let qtdDeAcertos = 0; // Quantidade de quizzes que o usuario acertou
 // funcao para scrollar para a próxima CaixaQuizz
+let qtdPerguntasRespondidas = 0;
 function proxCaixaQuizz() {
     const proxCaixaQuizz = document.querySelector('.CaixaQuizz.NaoRespondida');
     if (proxCaixaQuizz !== null){
         proxCaixaQuizz.scrollIntoView();
+    } else {
+        setTimeout(ResultadoQuizz,2000);
     }
 }
 
@@ -106,6 +109,7 @@ function SelecionarResposta(respSelecionada) {
         respSelecionada.classList.add("Selecionada");
         caixaQuizz.classList.remove("NaoRespondida");
         caixaQuizz.classList.add("Respondida");
+        qtdPerguntasRespondidas++;
         const respNaoSelecionada = caixaQuizz.querySelectorAll('figure');
         for (let i = 0; i < respNaoSelecionada.length; i++){
             if( !(respNaoSelecionada[i].classList.contains("Selecionada")) ){
@@ -115,4 +119,37 @@ function SelecionarResposta(respSelecionada) {
         respSelecionada.classList.contains('RespostaCerta')? qtdDeAcertos++ : 0;
         setTimeout(proxCaixaQuizz,2000);
     }
+}
+
+function ResultadoQuizz() {
+    const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
+    if(totalPerguntas === qtdPerguntasRespondidas){
+        const selecResulQuizz = document.querySelector('.ResultadoQuizz');
+        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas)*100 ) );
+
+        // const niveis = [];
+        // let pegaIndexNivel;
+        // for (let i = 0 ; i < niveis.length ; i++){
+        //     if( pegaIndexNivel === undefined){ 
+        //         if (porcentagemDeAcertos >= niveis[i].minValue){
+        //             pegaIndexNivel = niveis.indexOf(niveis[i]);
+        //         }
+        //     }
+        // }
+        
+        // ${niveis[pegaIndexNivel].title} usar no TextoResultado dentro de CaixaResultado
+        // ${niveis[pegaIndexNivel].image} usar na imagem do Resultado
+        // ${niveis[pegaIndexNivel].text} usar no paragrafo do Resultado 
+        selecResulQuizz.innerHTML=`                    
+        <div class="CaixaResultado">
+            <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+        </div>
+        <div class="Resultado">
+            <img src="./Resultado.png">
+            <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+        </div>
+        `
+        selecResulQuizz.scrollIntoView();
+    }
+
 }
