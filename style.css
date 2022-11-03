@@ -400,7 +400,7 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
 
 .ReiniciarOuVoltar {
   width: 260px;
-  margin: 0 auto;
+  margin: 40px auto;
 
   display: flex;
   flex-direction: column;
@@ -485,7 +485,6 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
   }
 
   .RespostaLegenda {
-    width: 164px;
     width: 164px;
     font-size: 13px;
   }
