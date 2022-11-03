@@ -118,9 +118,9 @@ function SelecionarResposta(respSelecionada) {
 
 function CarregarInformacoesTela2(resposta){
     const perguntas = resposta.data.questions;
-    const nivel1 = resposta.data.levels[0];
-    document.querySelector('.Tela2 .BannerQuizz img').src = nivel1.image;
-    document.querySelector('.Tela2 .TituloBanner').innerHTML = nivel1.title;
+    const nivel = resposta.data.levels[0];
+    document.querySelector('.Tela2 .BannerQuizz img').src = resposta.image;
+    document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.title;
     const telaQuizz = document.querySelector(".TelaQuizz");
     telaQuizz.innerHTML = "";
     for(let i = 0; i < perguntas.length; i++){
@@ -150,11 +150,11 @@ function CarregarInformacoesTela2(resposta){
     }
     telaQuizz.innerHTML += `<div class="ResultadoQuizz">
         <div class="CaixaResultado">
-            <p class="TextoResultado">88% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+            <p class="TextoResultado">${nivel.title}</p>
         </div>
         <div class="Resultado">
-            <img src="./Resultado.png">
-            <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+            <img src="${nivel.image}">
+            <p>${nivel.text}</p>
         </div>
     </div>
     <div class="ReiniciarOuVoltar">
