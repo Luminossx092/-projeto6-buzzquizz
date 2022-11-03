@@ -299,18 +299,6 @@ li .PerguntasQuizz {
   margin-bottom: 20px;
 }
 
-.CaixaPergunta.Primeira {
-  background-color: #434ca0;
-}
-
-.CaixaPergunta.Segunda {
-  background-color: #a0438d;
-}
-
-.CaixaPergunta.Terceira {
-  background-color: #009c22;
-}
-
 .TextoPergunta,
 .TextoResultado {
   font-weight: 700;
@@ -361,6 +349,7 @@ li .PerguntasQuizz {
 }
 
 .RespostaLegenda {
+  width: 330px;
   font-weight: 700;
   font-size: 20px;
   color: #000;
@@ -481,6 +470,7 @@ li .PerguntasQuizz {
   }
 
   .RespostaLegenda {
+    width: 164px;
     font-size: 13px;
   }
 
