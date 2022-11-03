@@ -127,8 +127,9 @@ function CarregarInformacoesTela2(resposta){
     document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.data.title;
     const telaQuizz = document.querySelector(".TelaQuizz");
     telaQuizz.innerHTML = "";
+    let telaQuizzInnerHTML = '';
     for(let i = 0; i < perguntas.length; i++){
-        telaQuizz.innerHTML += `<div class="CaixaQuizz NaoRespondida">
+        telaQuizzInnerHTML += `<div class="CaixaQuizz NaoRespondida">
         <div class="CaixaPergunta Primeira" style="background-color:${perguntas[i].color}">
         <p class="TextoPergunta">${perguntas[i].title}></p>
     </div>
@@ -137,22 +138,22 @@ function CarregarInformacoesTela2(resposta){
         arrRespostas.sort(() => Math.random() - 0.5)
         for(let j = 0; j < arrRespostas.length; j++){
             if(arrRespostas[j].isCorrectAnswer){
-                telaQuizz.innerHTML += `<figure class="RespostaCerta" onclick="SelecionarResposta(this)">
+                telaQuizzInnerHTML += `<figure class="RespostaCerta" onclick="SelecionarResposta(this)">
                 <img src="${arrRespostas[j].image}">
                 <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
             </figure>`
             }
             else {
-                telaQuizz.innerHTML +=`<figure class="RespostaErrada" onclick="SelecionarResposta(this)">
+                telaQuizzInnerHTML +=`<figure class="RespostaErrada" onclick="SelecionarResposta(this)">
                 <img src="${arrRespostas[j].image}">
                 <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
             </figure>`
             }
         }
-        telaQuizz.innerHTML += `</div>
+        telaQuizzInnerHTML += `</div>
         </div>`
     }
-    telaQuizz.innerHTML += `<div class="ResultadoQuizz">
+    telaQuizzInnerHTML += `<div class="ResultadoQuizz">
         <div class="CaixaResultado">
             <p class="TextoResultado">${nivel.title}</p>
         </div>
@@ -165,6 +166,7 @@ function CarregarInformacoesTela2(resposta){
         <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
         <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
     </div>`
+    telaQuizz.innerHTML = telaQuizzInnerHTML;
 }
 
 function ResultadoQuizz() {
