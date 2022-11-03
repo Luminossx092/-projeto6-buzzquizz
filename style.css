@@ -140,7 +140,7 @@ main .Tela1 ul .QuizzTela1:hover {
   cursor: pointer;
 }
 
-main .Tela1 .ListaQuizzes ul .QuizzTela1 figure img{
+main .Tela1 .ListaQuizzes ul .QuizzTela1 figure img {
   max-height: 181px;
   max-width: 340px;
   height: 100%;
@@ -176,19 +176,28 @@ main .Tela3 {
 }
 
 main .Tela3 h2 {
+  font-size: 23px;
   margin-top: 69px;
   margin-bottom: 29px;
   text-align: center;
 }
 
+main .PerguntasQuizz h2 {
+  font-size: 20px;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  margin-left: 10px;
+  text-align: left;
+}
+
 main .Tela3 .InformacoesBasicasQuizz {
-  height: 256px;
   width: 600px;
   margin: auto;
   padding: 16px;
   gap: 9px;
   display: flex;
   flex-direction: column;
+  justify-content: space-evenly;
   align-items: center;
   background-color: white;
   box-sizing: border-box;
@@ -224,6 +233,11 @@ main .Tela3 .BotaoProsseguirInformacaoBasica {
 main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
   cursor: pointer;
 }
+
+li .PerguntasQuizz {
+  margin-bottom: 10px;
+}
+
 .Desaparece {
   display: none;
 }
