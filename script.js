@@ -274,7 +274,8 @@ function ResultadoQuizz() {
         for (let i = (niveis.length - 1) ; i >= 0 ; i--){
             if( pegaIndexNivel === undefined ){ 
                 if (porcentagemDeAcertos >= niveis[i].minValue){
-                    pegaIndexNivel = niveis.indexOf(niveis[i]);
+                    pegaIndexNivel = i;
+
                 }
             }
         }
