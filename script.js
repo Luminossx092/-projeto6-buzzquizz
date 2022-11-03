@@ -19,7 +19,7 @@ CarregarTela1();
 //renderiza os ultimos(mais recentes) ultimosXElementos (quantos quizzes renderizar)quizzes a partir do servidor
 function RenderizarUltimosXQuizzesServidor(resposta) {
     //escolhe quantos elementos aparecer na tela1
-    const index = 10;
+    const index = 1;
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
     listaQuizzes.innerHTML = "";
     const quizz = resposta.data;
