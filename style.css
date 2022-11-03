@@ -3,7 +3,7 @@
 p {
   font-family: "Roboto", sans-serif;
 }
-/*texto em negrito usa esse aqui↓*/
+
 h2 {
   font-family: "Roboto", sans-serif;
   font-size: 20px;
@@ -119,8 +119,6 @@ main .Tela1 .ListaQuizzesUsuario .SeusQuizzes .BotaoCriarSeuQuizz:hover {
 
 main .Tela1 .ListaQuizzes {
   margin-top: 77px;
-  /*display: flex;
-    flex-direction: column;*/
 }
 
 main .Tela1 h2 {
@@ -316,18 +314,6 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
   margin-bottom: 20px;
 }
 
-.CaixaPergunta.Primeira {
-  background-color: #434ca0;
-}
-
-.CaixaPergunta.Segunda {
-  background-color: #a0438d;
-}
-
-.CaixaPergunta.Terceira {
-  background-color: #009c22;
-}
-
 .TextoPergunta,
 .TextoResultado {
   font-weight: 700;
@@ -378,6 +364,7 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
 }
 
 .RespostaLegenda {
+  width: 330px;
   font-weight: 700;
   font-size: 20px;
   color: #000;
@@ -498,6 +485,7 @@ main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
   }
 
   .RespostaLegenda {
+    width: 164px;
     font-size: 13px;
   }
 
