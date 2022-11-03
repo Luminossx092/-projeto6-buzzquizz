@@ -1,6 +1,4 @@
-const getQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-getQuizz.then(RenderizarUltimosXQuizzesServidor)
-getQuizz.catch(ErroRenderQuizzes);
+
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
@@ -12,9 +10,9 @@ function CarregarTela1() {
         document.querySelector(".ListaQuizzesUsuario").classList.remove("Desaparece")
         RenderizarQuizzesDoUsuario();
     }
-    //const getQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
-    //getQuizz.then(RenderizarUltimosXQuizzesServidor)
-    //getQuizz.catch(ErroRenderQuizzes);
+    const getQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
+    getQuizz.then(RenderizarUltimosXQuizzesServidor)
+    getQuizz.catch(ErroRenderQuizzes);
 }
 CarregarTela1();
 
@@ -25,13 +23,14 @@ function RenderizarUltimosXQuizzesServidor(resposta) {
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
     listaQuizzes.innerHTML = "";
     const quizz = resposta.data;
+    console.log(quizz)
 
     for (let i = 0; i < index; i++) {
 
         listaQuizzes.innerHTML += `
             <li id="${quizz[i].id}" onclick="AbrirQuizz(id)" class="QuizzTela1">
                 <figure>
-                    <img src="${quizz[i].image}" alt="">
+                    <img src="${quizz[i].image}" alt="Imagem Indisponivel">
                 </figure>
                 <p>${quizz[i].title}</p>
             </li>

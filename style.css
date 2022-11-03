@@ -1,14 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-p{
-    font-family: 'Roboto', sans-serif;
+p {
+  font-family: "Roboto", sans-serif;
 }
 /*texto em negrito usa esse aqui↓*/
-h2{
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    font-weight: 700;
-    line-height: 23px;
+h2 {
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  line-height: 23px;
 }
 /* se quiser usar na tela 3
 h4{
@@ -20,460 +20,472 @@ h4{
     color: #BABABA;
 }*/
 
-header.Cabecalho{
-    width: 100%;
-    height: 69px;
-    background-color: #EC362D;
-    position: fixed;
-    top: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 0px 4px 4px 0px #00000040;
-    box-sizing: border-box;
-    z-index: 1;
+header.Cabecalho {
+  width: 100%;
+  height: 69px;
+  background-color: #ec362d;
+  position: fixed;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0px 4px 4px 0px #00000040;
+  box-sizing: border-box;
+  z-index: 1;
 }
 
-header.Cabecalho h1{
-    font-family: 'Roboto', sans-serif;
-    font-size: 37px;
-    font-weight: 700;
-    line-height: 43px;
-    color: white;
+header.Cabecalho h1 {
+  font-family: "Roboto", sans-serif;
+  font-size: 37px;
+  font-weight: 700;
+  line-height: 43px;
+  color: white;
 }
 
-body{
-    height: 100%;
-    width: 100%;
+body {
+  height: 100%;
+  width: 100%;
 }
-main .Tela1{
-    width: auto;
-    margin: 0 195px;
-}
-
-main .Tela1 .DivBotaoCriarQuizz{
-    height: 181px;
-    margin-top: 146px ;
-    padding: 33px;
-    border-radius: 5px;
-    border: 1px solid #D4D4D4;
-    background-color: #FAFAFA;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    box-sizing: border-box;
+main .Tela1 {
+  width: auto;
+  margin: 0 195px;
 }
 
-main .Tela1 .DivBotaoCriarQuizz p{
-    width: 250px;
-    font-family: 'Roboto', sans-serif;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 23px;
-    text-align: center;
-    color: #B9B9B9;
+main .Tela1 .DivBotaoCriarQuizz {
+  height: 181px;
+  margin-top: 146px;
+  padding: 33px;
+  border-radius: 5px;
+  border: 1px solid #d4d4d4;
+  background-color: #fafafa;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
 }
 
-main .Tela1 .DivBotaoCriarQuizz .BotaoCriarQuizz{
-    height: 40px;
-    width: 151px;
-    border-radius: 50px;
-    border: 1px dashed #EC362D;
-    background-color: #FAFAFA;
-
-    font-family: 'Roboto', sans-serif;
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 25px;
-    text-align: center;
-    color: #EC362D;
+main .Tela1 .DivBotaoCriarQuizz p {
+  width: 250px;
+  font-family: "Roboto", sans-serif;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 23px;
+  text-align: center;
+  color: #b9b9b9;
 }
 
-main .Tela1 .DivBotaoCriarQuizz .BotaoCriarQuizz:hover{
-    cursor: pointer;
+main .Tela1 .DivBotaoCriarQuizz .BotaoCriarQuizz {
+  height: 40px;
+  width: 151px;
+  border-radius: 50px;
+  border: 1px dashed #ec362d;
+  background-color: #fafafa;
+
+  font-family: "Roboto", sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 25px;
+  text-align: center;
+  color: #ec362d;
 }
 
-main .Tela1 .ListaQuizzesUsuario{
-    margin-top: 77px;
+main .Tela1 .DivBotaoCriarQuizz .BotaoCriarQuizz:hover {
+  cursor: pointer;
 }
-main .Tela1 .ListaQuizzesUsuario .SeusQuizzes{
-    display: flex;
-    align-items: center;
+
+main .Tela1 .ListaQuizzesUsuario {
+  margin-top: 77px;
+}
+main .Tela1 .ListaQuizzesUsuario .SeusQuizzes {
+  display: flex;
+  align-items: center;
 }
 
 main .Tela1 .ListaQuizzesUsuario .SeusQuizzes .BotaoCriarSeuQuizz {
-    border-radius: 500px;
-    color: #EC362D;
-    background-color: white;
-    border: none;
-    font-size:32px;
+  border-radius: 500px;
+  color: #ec362d;
+  background-color: white;
+  border: none;
+  font-size: 32px;
 }
 
-main .Tela1 .ListaQuizzesUsuario .SeusQuizzes .BotaoCriarSeuQuizz:hover{
-    cursor: pointer;
+main .Tela1 .ListaQuizzesUsuario .SeusQuizzes .BotaoCriarSeuQuizz:hover {
+  cursor: pointer;
 }
 
-main .Tela1 .ListaQuizzes{
-    margin-top: 77px;
-    /*display: flex;
+main .Tela1 .ListaQuizzes {
+  margin-top: 77px;
+  /*display: flex;
     flex-direction: column;*/
 }
 
-main .Tela1 h2{
-    margin-bottom: 12px;
+main .Tela1 h2 {
+  margin-bottom: 12px;
 }
 
-main .Tela1 ul{
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 12px;
+main .Tela1 ul {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
 }
-main .Tela1  ul .QuizzTela1{
-    position: relative;
-    height: 181px;
-    width: 340px;
-}
-
-main .Tela1  ul .QuizzTela1:hover{
-    cursor: pointer;
+main .Tela1 ul .QuizzTela1 {
+  position: relative;
+  height: 181px;
+  width: 340px;
 }
 
-main .Tela1 .ListaQuizzes ul .QuizzTela1 figure{
-    height: 100%;
-    width: 100%;
-    border-radius: 5px;
-    background: linear-gradient(180deg, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 0.5) 64.58%, #000000 100%);
+main .Tela1 ul .QuizzTela1:hover {
+  cursor: pointer;
 }
 
-main .Tela1 ul p{
-    height: 54px;
-    font-size: 19px;
-    font-weight: 400;
-    line-height: 22px;
-    margin: 0 18px;
-    text-align: left;
-    color: white;
-    position: absolute;
-    bottom: 0;
-    flex-wrap: wrap;
+main .Tela1 .ListaQuizzes ul .QuizzTela1 figure img{
+  max-height: 181px;
+  max-width: 340px;
+  height: 100%;
+  width: 100%;
+  object-fit: contain;
+  border-radius: 5px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(0, 0, 0, 0.5) 64.58%,
+    #000000 100%
+  );
 }
 
-main .Tela3{
-    width: 100%;
-    height: 100%;
-    padding-top: 70px;
-    background-color: #FAFAFA;
+main .Tela1 ul p {
+  height: 54px;
+  font-size: 19px;
+  font-weight: 400;
+  line-height: 22px;
+  margin: 0 18px;
+  text-align: left;
+  color: white;
+  position: absolute;
+  bottom: 0;
+  flex-wrap: wrap;
 }
 
-main .Tela3 h2{
-    margin-top: 69px;
-    margin-bottom: 29px;
-    text-align: center;
+main .Tela3 {
+  width: 100%;
+  height: 100%;
+  padding-top: 70px;
+  background-color: #fafafa;
 }
 
-main .Tela3 .InformacoesBasicasQuizz{
-    height: 256px;
-    width: 600px;
-    margin: auto;
-    padding: 16px;
-    gap: 9px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    background-color: white;
-    box-sizing: border-box;
+main .Tela3 h2 {
+  margin-top: 69px;
+  margin-bottom: 29px;
+  text-align: center;
 }
 
-main .Tela3 .InformacoesBasicasQuizz .InformacaoBasicaQuizz{
-    height: 46px;
-    width: 564px;
-    padding: 23px;
-    border-radius: 5px;
-    border: 1px solid #D1D1D1;
-    box-sizing: border-box;
+main .Tela3 .InformacoesBasicasQuizz {
+  height: 256px;
+  width: 600px;
+  margin: auto;
+  padding: 16px;
+  gap: 9px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: white;
+  box-sizing: border-box;
 }
 
-main .Tela3 .BotaoProsseguirInformacaoBasica{
-    height: 54px;
-    width: 369px;
-    margin: auto;
-    margin-top: 85px;
-    border-radius: 15px;
-    border: none;
-    font-family: 'Roboto', sans-serif;
-    font-size: 21px;
-    font-weight: 400;
-    line-height: 25px;
-    background-color: #EC362D;
-    color: #FFF5F4;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+main .Tela3 .InformacoesBasicasQuizz .InformacaoBasicaQuizz {
+  height: 46px;
+  width: 564px;
+  padding: 23px;
+  border-radius: 5px;
+  border: 1px solid #d1d1d1;
+  box-sizing: border-box;
 }
 
-main .Tela3 .BotaoProsseguirInformacaoBasica:hover{
-    cursor: pointer;
+main .Tela3 .BotaoProsseguirInformacaoBasica {
+  height: 54px;
+  width: 369px;
+  margin: auto;
+  margin-top: 85px;
+  border-radius: 15px;
+  border: none;
+  font-family: "Roboto", sans-serif;
+  font-size: 21px;
+  font-weight: 400;
+  line-height: 25px;
+  background-color: #ec362d;
+  color: #fff5f4;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-.Desaparece{
-    display: none;
+
+main .Tela3 .BotaoProsseguirInformacaoBasica:hover {
+  cursor: pointer;
+}
+.Desaparece {
+  display: none;
 }
 
 /* COMEÇO CSS TELA 2*/
 
 .BannerQuizz {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-    margin-top: 69px;
-    height: 220px;
-    position: relative;
+  margin-top: 69px;
+  height: 220px;
+  position: relative;
 }
 
 .BannerQuizz img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .TituloBanner {
-    position: absolute;
-    font-size: 39px;
-    color: #FFFFFF;
+  position: absolute;
+  font-size: 39px;
+  color: #ffffff;
 }
 
 .EscureceBanner {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: #000;
-    opacity: 0.6;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-color: #000;
+  opacity: 0.6;
 }
 
 .TelaQuizz {
-    width: 760px;
-    margin: 0 auto;
-    margin-bottom: 50px;
+  width: 760px;
+  margin: 0 auto;
+  margin-bottom: 50px;
 }
 
-.CaixaQuizz, .ResultadoQuizz {
-    box-sizing: border-box;
-    padding: 35px;
-    margin-top: 42px;
+.CaixaQuizz,
+.ResultadoQuizz {
+  box-sizing: border-box;
+  padding: 35px;
+  margin-top: 42px;
 }
 
-.CaixaPergunta, .CaixaResultado {
-    box-sizing: border-box;
-    padding: 10px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 140px;
-    background-color: #000;
-    margin-bottom: 20px;
+.CaixaPergunta,
+.CaixaResultado {
+  box-sizing: border-box;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 140px;
+  background-color: #000;
+  margin-bottom: 20px;
 }
 
 .CaixaPergunta.Primeira {
-    background-color: #434CA0;
+  background-color: #434ca0;
 }
 
 .CaixaPergunta.Segunda {
-    background-color: #A0438D;
+  background-color: #a0438d;
 }
 
 .CaixaPergunta.Terceira {
-    background-color: #009C22;
+  background-color: #009c22;
 }
 
-.TextoPergunta, .TextoResultado {
-    font-weight: 700;
-    font-size: 23px;
-    color: #FFF;
+.TextoPergunta,
+.TextoResultado {
+  font-weight: 700;
+  font-size: 23px;
+  color: #fff;
 }
 
 .Respostas {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    row-gap: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  row-gap: 20px;
 }
 
-.RespostaCerta:hover, .RespostaErrada:hover {
-    cursor: pointer;
+.RespostaCerta:hover,
+.RespostaErrada:hover {
+  cursor: pointer;
 }
 
-.RespostaErrada.NaoSelecionada:hover, .RespostaErrada.Selecionada:hover,
-.RespostaCerta.NaoSelecionada:hover, .RespostaCerta.Selecionada:hover {
-    cursor: default;
+.RespostaErrada.NaoSelecionada:hover,
+.RespostaErrada.Selecionada:hover,
+.RespostaCerta.NaoSelecionada:hover,
+.RespostaCerta.Selecionada:hover {
+  cursor: default;
 }
 
 .RespostaErrada.NaoSelecionada {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
-.RespostaErrada.Selecionada .RespostaLegenda, 
+.RespostaErrada.Selecionada .RespostaLegenda,
 .RespostaErrada.NaoSelecionada .RespostaLegenda {
-    color: #FF4B4B;
+  color: #ff4b4b;
 }
 
 .RespostaCerta.NaoSelecionada {
-    opacity: 0.3;
+  opacity: 0.3;
 }
 
-.RespostaCerta.Selecionada .RespostaLegenda, 
+.RespostaCerta.Selecionada .RespostaLegenda,
 .RespostaCerta.NaoSelecionada .RespostaLegenda {
-    color: #009C22;
+  color: #009c22;
 }
 
-
-.Respostas figure img{
-    width: 330px;
-    height: 175px;
+.Respostas figure img {
+  width: 330px;
+  height: 175px;
 }
 
 .RespostaLegenda {
-    font-weight: 700;
-    font-size: 20px;
-    color: #000;
-    margin-top: 7px;
+  font-weight: 700;
+  font-size: 20px;
+  color: #000;
+  margin-top: 7px;
 }
 
 .ResultadoQuizz {
-    padding: 16px;
-    margin-bottom: 57px;
+  padding: 16px;
+  margin-bottom: 57px;
 }
 
 .CaixaResultado {
-    background-color: #EC362D;
-    height: 100px;
+  background-color: #ec362d;
+  height: 100px;
 }
 
 .Resultado {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
 
 .Resultado img {
-    width: 365px;
-    height: 273px;
+  width: 365px;
+  height: 273px;
 }
 
 .Resultado p {
-    width: 330px;
-    font-weight: 700;
-    font-size: 19px;
-    color: #484848;
+  width: 330px;
+  font-weight: 700;
+  font-size: 19px;
+  color: #484848;
 }
 
 .ReiniciarOuVoltar {
-    width: 260px;
-    margin: 0 auto;
-    
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  width: 260px;
+  margin: 0 auto;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .BotaoReiniciarQuizz {
-    width: 260px;
-    height: 52px;
-    font-size: 21px;
-    color: #FFF;
-    background-color: #EC362D;
-    border-radius: 15px;
-    margin-bottom: 30px;
-    border: none;
+  width: 260px;
+  height: 52px;
+  font-size: 21px;
+  color: #fff;
+  background-color: #ec362d;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  border: none;
 }
 
 .VoltarHome {
-    font-size: 21px;
-    text-align: center;
-    color: #818181;
+  font-size: 21px;
+  text-align: center;
+  color: #818181;
 }
 
-.BotaoReiniciarQuizz:hover, .VoltarHome:hover {
-    cursor: pointer;
+.BotaoReiniciarQuizz:hover,
+.VoltarHome:hover {
+  cursor: pointer;
 }
 
 /*FIM DO CSS TELA 2*/
 
 @media only screen and (max-width: 1100px) {
-    main .DivBotaoCriarQuizz{
-        width: 340px;
-        margin: 0 auto;
-        margin-top: 100px;
-    }
-
-    main .Tela1{
-        width: 340px;
-        margin: 0 auto;
-        margin-top: 35px;
-    }
-
-    main .Tela1 .SeusQuizzes{
-        justify-content: space-between;
-    }
-
-    main .Tela1 ul{
-        flex-direction: column;
-        align-items: center;
-    }
-
-    /*RESPONSIVIDADE TELA 2*/
-    .BannerQuizz {
-        width: 100vw;
-        height: 142px;
-    }
-    
-    .TituloBanner, .TextoPergunta, .TextoResultado {
-        font-size: 19px;
-        text-align: center;
-    }
-
-    .TelaQuizz {
-        width: 375px;
-    }
-
-    .CaixaQuizz {
-        width: 100%;
-        padding: 18px;
-    }
-
-    .CaixaPergunta {
-        height: 90px;
-    }
-
-    .RespostaCerta,.RespostaErrada {
-
-    }
-
-    .Respostas figure img {
-        width: 164px;
-        height: 113px;
-    }
-
-    .RespostaLegenda {
-        font-size: 13px;
-    }
-
-    .Resultado {
-        display: flex;
-        flex-direction: column;
-    }
-
-    .Resultado img {
-        width: 100%;
-    }
-
-    .Resultado p {
-        font-size: 17px;
-        margin-top: 9px;
-    }
-
-    .BotaoReiniciarQuizz {
-        width: 220px;
-        height: 44px;
-    }
-    /*FIM DA RESPONSIVIDADE TELA 2*/
+  main .DivBotaoCriarQuizz {
+    width: 340px;
+    margin: 0 auto;
+    margin-top: 100px;
   }
+
+  main .Tela1 {
+    width: 340px;
+    margin: 0 auto;
+    margin-top: 35px;
+  }
+
+  main .Tela1 .SeusQuizzes {
+    justify-content: space-between;
+  }
+
+  main .Tela1 ul {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  /*RESPONSIVIDADE TELA 2*/
+  .BannerQuizz {
+    width: 100vw;
+    height: 142px;
+  }
+
+  .TituloBanner,
+  .TextoPergunta,
+  .TextoResultado {
+    font-size: 19px;
+    text-align: center;
+  }
+
+  .TelaQuizz {
+    width: 375px;
+  }
+
+  .CaixaQuizz {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .CaixaPergunta {
+    height: 90px;
+  }
+
+  .Respostas figure img {
+    width: 164px;
+    height: 113px;
+  }
+
+  .RespostaLegenda {
+    font-size: 13px;
+  }
+
+  .Resultado {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .Resultado img {
+    width: 100%;
+  }
+
+  .Resultado p {
+    font-size: 17px;
+    margin-top: 9px;
+  }
+
+  .BotaoReiniciarQuizz {
+    width: 220px;
+    height: 44px;
+  }
+  /*FIM DA RESPONSIVIDADE TELA 2*/
+}
