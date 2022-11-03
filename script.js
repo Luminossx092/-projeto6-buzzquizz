@@ -66,56 +66,98 @@ function AbrirQuizz(idQuizz) {
 function CarregarTela2(id) {
     document.querySelector("main .Tela2").classList.remove("Desaparece");
     axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
-    .then(CarregarInformacoesTela2)
-    .catch(ErroRenderQuizzes);
+        .then(CarregarInformacoesTela2)
+        .catch(ErroRenderQuizzes);
 }
+
+
+// ----------------------------------------------------------- Criando Quizz
 
 function CarregarTela3() {
     document.querySelector("main .Tela1").classList.add("Desaparece");
     document.querySelector("main .Tela3").classList.remove("Desaparece");
 }
 
+
+// ----------------------------------------------------------- Criando Quizz (Perguntas)
+
 function CarregarTela3_1() {
     //Limpa os inputs anteriores
     document.querySelectorAll("input").forEach(element => element.value = "");
     document.querySelector("main .Tela3").classList.add("Desaparece");
-    document.querySelector("main .Tela3-1").classList.remove("Desaparece");
+    document.querySelector("main .Tela3_1").classList.remove("Desaparece");
     document.querySelector(".PerguntasQuizz").innerHTML = "";
 
     qtdPerguntas = 3;
 
     //Carrega o local para inserir as perguntas
-    for (let i = 0; i < qtdPerguntas; i++) {
+    for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelector(".PerguntasQuizz").innerHTML += `
-            <li>
-                <h2>Pergunta ${i + 1}</h2>
-                <div class="InformacoesBasicasQuizz">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Texto da pergunta">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Cor de fundo da pergunta">
+            <li class="perguntaQuizz">
+                <div class="marginPerguntas"></div>
+                <div><h2>Pergunta ${i}</h2></div>
+                <div class="InfoBasicasQuizz centralizar">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Texto da pergunta">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Cor de fundo da pergunta">
                 </div>
-                <h2>Resposta correta</h2>
-                <div class="InformacoesBasicasQuizz">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Resposta correta">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="URL da imagem">
+                <div class="marginPerguntas"></div>
+                <div><h2>Resposta correta</h2></div>
+                <div class="InfoBasicasQuizz centralizar">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta correta">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem">
                 </div>
-                <h2>Resposta incorreta</h2>
-                <div class="InformacoesBasicasQuizz">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Resposta correta 1">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="URL da imagem 1">
+                <div class="marginPerguntas"></div>
+                <div><h2>Resposta incorreta</h2></div>
+                <div class="InfoBasicasQuizz centralizar marginEntreErradas">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 1">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 1">
                 </div>
-                <div class="InformacoesBasicasQuizz">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Resposta correta 2">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="URL da imagem 2">
+                <div class="InfoBasicasQuizz centralizar marginEntreErradas">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 2">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 2">
                 </div>
-                <div class="InformacoesBasicasQuizz">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Resposta correta 3">
-                    <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="URL da imagem 3">
+                <div class="InfoBasicasQuizz centralizar">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 3">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 3">
                 </div>
+                <div class="marginPerguntas"></div>
             </li>
         `
     }
 }
+
+
+// ----------------------------------------------------------- Criando Quizz (Níveis)
+
+function CarregarTela3_2() {
+    //Limpa os inputs anteriores
+    document.querySelectorAll("input").forEach(element => element.value = "");
+    document.querySelector("main .Tela3_1").classList.add("Desaparece");
+    document.querySelector("main .Tela3_2").classList.remove("Desaparece");
+    document.querySelector(".NiveisQuizz").innerHTML = "";
+
+    qtdNiveis = 2;
+
+    //Carrega o local para inserir os níveis
+    for (let i = 1; i <= qtdNiveis; i++) {
+
+        document.querySelector(".NiveisQuizz").innerHTML += `
+            <li class="perguntaQuizz">
+                <div class="marginPerguntas"></div>
+                <div><h2>Nível ${i}</h2></div>
+                <div class="InfoBasicasQuizz centralizar">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Título do nível">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="% de acerto mínima">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem do nível">
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Descrição do nível">
+                </div>
+                <div class="marginPerguntas"></div>
+            </li>
+        `
+    }
+}
+// ----------------------------------------------------------- Criando Quizz (checando dados das infos)
 
 function VerificarInformacoesBasicasPergunta() {
     const DadosInválidos = function () { alert("Dados inválidos, preencha os dados corretamente!"); }
@@ -127,7 +169,7 @@ function VerificarInformacoesBasicasPergunta() {
     qtdPerguntas = Number(document.querySelector(".Tela3 .QuantidadePerguntasQuizz").value);
     qtdniveis = Number(document.querySelector(".Tela3 .QuantidadesNiveisQuizz").value);
     /*
-    if (tamanhoTitulo < 20 || tamanhoTitulo > 65 || qtdPerguntas < 3 || qtdniveis < 2) {
+    if (tamanhoTitulo < 20 || tamanhoTitulo > 65 || qtdPerguntas < 3 || qtdNiveis < 2) {
         DadosInválidos();
         return;
     }
@@ -142,9 +184,11 @@ function VerificarInformacoesBasicasPergunta() {
 }
 
 
+
+// ----------------------------------------------------------- Criando Quizz (checando dados das perguntas)
+
 function VerificarPerguntasQuizz() {
-
-
+    CarregarTela3_2();
 }
 
 function Erro() {
@@ -190,7 +234,7 @@ function CarregarInformacoesTela2(resposta){
     const telaQuizz = document.querySelector(".TelaQuizz");
     telaQuizz.innerHTML = "";
     let telaQuizzInnerHTML = '';
-    for(let i = 0; i < perguntas.length; i++){
+    for (let i = 0; i < perguntas.length; i++) {
         telaQuizzInnerHTML += `<div class="CaixaQuizz NaoRespondida">
         <div class="CaixaPergunta" style="background-color:${perguntas[i].color}">
         <p class="TextoPergunta">${perguntas[i].title}></p>
@@ -198,15 +242,15 @@ function CarregarInformacoesTela2(resposta){
     <div class="Respostas">`
         let arrRespostas = perguntas[i].answers;
         arrRespostas.sort(() => Math.random() - 0.5)
-        for(let j = 0; j < arrRespostas.length; j++){
-            if(arrRespostas[j].isCorrectAnswer){
+        for (let j = 0; j < arrRespostas.length; j++) {
+            if (arrRespostas[j].isCorrectAnswer) {
                 telaQuizzInnerHTML += `<figure class="RespostaCerta" onclick="SelecionarResposta(this)">
                 <img src="${arrRespostas[j].image}">
                 <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
             </figure>`
             }
             else {
-                telaQuizzInnerHTML +=`<figure class="RespostaErrada" onclick="SelecionarResposta(this)">
+                telaQuizzInnerHTML += `<figure class="RespostaErrada" onclick="SelecionarResposta(this)">
                 <img src="${arrRespostas[j].image}">
                 <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
             </figure>`
@@ -215,19 +259,6 @@ function CarregarInformacoesTela2(resposta){
         telaQuizzInnerHTML += `</div>
         </div>`
     }
-    telaQuizzInnerHTML += `<div class="ResultadoQuizz">
-        <div class="CaixaResultado">
-            <p class="TextoResultado">${nivel.title}</p>
-        </div>
-        <div class="Resultado">
-            <img src="${nivel.image}">
-            <p>${nivel.text}</p>
-        </div>
-    </div>
-    <div class="ReiniciarOuVoltar">
-        <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
-        <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
-    </div>`
     telaQuizz.innerHTML = telaQuizzInnerHTML;
 }
 
@@ -256,11 +287,12 @@ function ResultadoQuizz() {
         <div class="CaixaResultado">
             <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
         </div>
-        <div class="Resultado">
-            <img src="./Resultado.png">
-            <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+        <div class="ReiniciarOuVoltar">
+            <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
+            <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
         </div>
         `
+        
         selecResulQuizz.scrollIntoView();
     }
 }

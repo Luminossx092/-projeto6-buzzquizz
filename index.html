@@ -85,7 +85,8 @@
                     </div>
                     <div class="Resultado">
                         <img src="./Resultado.png">
-                        <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+                        <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no
+                            botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
                     </div>
                 </div>
                 <div class="ReiniciarOuVoltar">
@@ -96,25 +97,31 @@
         </div>
         <div class="Tela3 Desaparece">
             <h2>Comece pelo começo</h2>
-            <ul class="InformacoesBasicasQuizz">
-                <li>
-                <input class="InformacaoBasicaQuizz TituloQuizz" type="text" placeholder="Título do seu quizz">
-                <input class="InformacaoBasicaQuizz URLImagemQuizz" type="text"
-                    placeholder="URL da imagem do seu quizz">
-                <input class="InformacaoBasicaQuizz QuantidadePerguntasQuizz" type="text"
-                    placeholder="Quantidade de perguntas do quizz">
-                <input class="InformacaoBasicaQuizz QuantidadesNiveisQuizz" type="text"
-                    placeholder="Quantidade de níveis do quizz">
+            <ul class="InfoBasicasQuizz">
+                <li class="centralizar">
+                    <div class="marginInfo"></div>
+                    <input class="divsInfo TituloQuizz" type="text" placeholder="Título do seu quizz">
+                    <input class="divsInfo URLImagemQuizz" type="text" placeholder="URL da imagem do seu quizz">
+                    <input class="divsInfo QuantidadePerguntasQuizz" type="text"
+                        placeholder="Quantidade de perguntas do quizz">
+                    <input class="divsInfo QuantidadesNiveisQuizz" type="text"
+                        placeholder="Quantidade de níveis do quizz">
+                    <div class="marginInfo"></div>
                 </li>
             </ul>
             <button onclick="VerificarInformacoesBasicasPergunta()" class="BotaoProsseguirInformacaoBasica">Prosseguir
                 para criar perguntas</button>
         </div>
-        <div class="Tela3 Tela3-1 Desaparece">
+        <div class="Tela3 Tela3_1 Desaparece">
             <h2>Crie suas perguntas</h2>
-            <ul class="InformacoesBasicasQuizz PerguntasQuizz"></ul>
+            <ul class="InfoBasicasQuizz PerguntasQuizz"></ul>
             <button onclick="VerificarPerguntasQuizz()" class="BotaoProsseguirInformacaoBasica">Prosseguir para criar
                 níveis</button>
+        </div>
+        <div class="Tela3 Tela3_2 Desaparece">
+            <h2>Crie seus níveis</h2>
+            <ul class="InfoBasicasQuizz NiveisQuizz"></ul>
+            <button onclick="VerificarNiveisQuizz()" class="BotaoProsseguirInformacaoBasica">Finalizar Quizz</button>
         </div>
     </main>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
