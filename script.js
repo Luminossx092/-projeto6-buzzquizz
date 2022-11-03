@@ -22,14 +22,11 @@ CarregarTela1();
 //renderiza os ultimos(mais recentes) ultimosXElementos (quantos quizzes renderizar)quizzes a partir do servidor
 function RenderizarUltimosXQuizzesServidor(resposta) {
     //escolhe quantos elementos aparecer na tela1
-    const index = 1;
+    const index = 3;
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
     listaQuizzes.innerHTML = "";
     const quizz = resposta.data;
-    console.log(quizz)
-
     for (let i = 0; i < index; i++) {
-
         listaQuizzes.innerHTML += `
             <li id="${quizz[i].id}" onclick="AbrirQuizz(id)" class="QuizzTela1">
                 <figure>
@@ -51,13 +48,15 @@ function RenderizarQuizzesDoUsuario() {
 //recebe o id do quiz que é pra abrir na tela2
 function AbrirQuizz(idQuizz) {
     document.querySelector("main .Tela1").classList.add("Desaparece");
-    CarregarTela2();
+    CarregarTela2(idQuizz);
 
 }
 
-function CarregarTela2() {
+function CarregarTela2(id) {
     document.querySelector("main .Tela2").classList.remove("Desaparece");
-
+    axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes/${id}`)
+    .then(CarregarInformacoesTela2)
+    .catch(ErroRenderQuizzes);
 }
 
 function CarregarTela3() {
@@ -121,6 +120,53 @@ function SelecionarResposta(respSelecionada) {
     }
 }
 
+function CarregarInformacoesTela2(resposta){
+    const perguntas = resposta.data.questions;
+    const nivel = resposta.data.levels[0];
+    document.querySelector('.Tela2 .BannerQuizz img').src = resposta.data.image;
+    document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.data.title;
+    const telaQuizz = document.querySelector(".TelaQuizz");
+    telaQuizz.innerHTML = "";
+    for(let i = 0; i < perguntas.length; i++){
+        telaQuizz.innerHTML += `<div class="CaixaQuizz NaoRespondida">
+        <div class="CaixaPergunta Primeira" style="background-color:${perguntas[i].color}">
+        <p class="TextoPergunta">${perguntas[i].title}></p>
+    </div>
+    <div class="Respostas">`
+        let arrRespostas = perguntas[i].answers;
+        arrRespostas.sort(() => Math.random() - 0.5)
+        for(let j = 0; j < arrRespostas.length; j++){
+            if(arrRespostas[j].isCorrectAnswer){
+                telaQuizz.innerHTML += `<figure class="RespostaCerta" onclick="SelecionarResposta(this)">
+                <img src="${arrRespostas[j].image}">
+                <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
+            </figure>`
+            }
+            else {
+                telaQuizz.innerHTML +=`<figure class="RespostaErrada" onclick="SelecionarResposta(this)">
+                <img src="${arrRespostas[j].image}">
+                <figcaption class="RespostaLegenda">${arrRespostas[j].text}</figcaption>
+            </figure>`
+            }
+        }
+        telaQuizz.innerHTML += `</div>
+        </div>`
+    }
+    telaQuizz.innerHTML += `<div class="ResultadoQuizz">
+        <div class="CaixaResultado">
+            <p class="TextoResultado">${nivel.title}</p>
+        </div>
+        <div class="Resultado">
+            <img src="${nivel.image}">
+            <p>${nivel.text}</p>
+        </div>
+    </div>
+    <div class="ReiniciarOuVoltar">
+        <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
+        <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
+    </div>`
+}
+
 function ResultadoQuizz() {
     const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
     if(totalPerguntas === qtdPerguntasRespondidas){
@@ -151,5 +197,4 @@ function ResultadoQuizz() {
         `
         selecResulQuizz.scrollIntoView();
     }
-
 }
