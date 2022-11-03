@@ -1,17 +1,22 @@
-let quantidadePerguntas, qtdniveis, criaTituloQuizz, perguntas, niveis;
+let quantidadePerguntas, qtdniveis, criaTituloQuizz, perguntas, niveis, listaIdDeQuizzUsuario;
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
     document.querySelector("main .Tela2").classList.add("Desaparece");
     document.querySelector("main .Tela1").classList.remove("Desaparece");
 
-    const listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("id do usuario sei la"));
+    listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("QuizzesSalvos"));
     if (listaIdDeQuizzUsuario == null) {
         document.querySelector(".Tela1 .DivBotaoCriarQuizz").classList.remove("Desaparece");
     }
     else {
         document.querySelector(".ListaQuizzesUsuario").classList.remove("Desaparece")
-        RenderizarQuizzesDoUsuario();
+        document.querySelector("main .ListaQuizzesUsuario ul").innerHTML = "";
+        for(let i = 0; i < listaIdDeQuizzUsuario.length; i++){
+            axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/${listaIdDeQuizzUsuario[i]}`)
+            .then(RenderizarQuizzesDoUsuario)
+            .catch();
+        }
     }
     const getQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
     getQuizz.then(RenderizarUltimosXQuizzesServidor)
@@ -19,10 +24,9 @@ function CarregarTela1() {
 }
 CarregarTela1();
 
-//renderiza os ultimos(mais recentes) ultimosXElementos (quantos quizzes renderizar)quizzes a partir do servidor
 function RenderizarUltimosXQuizzesServidor(resposta) {
     //escolhe quantos elementos aparecer na tela1
-    const index = 3;
+    const index = 6;
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
     listaQuizzes.innerHTML = "";
     const quizz = resposta.data;
@@ -42,14 +46,21 @@ function ErroRenderQuizzes(erro) {
     console.log(erro);
 }
 
-function RenderizarQuizzesDoUsuario() {
-
+function RenderizarQuizzesDoUsuario(resposta) {
+    const quizz = resposta.data;
+    document.querySelector("main .ListaQuizzesUsuario ul").innerHTML += `
+        <li id="${quizz[i].id}" onclick="AbrirQuizz(id)" class="QuizzTela1">
+            <figure>
+                <img src="${quizz[i].image}" alt="Imagem Indisponivel">
+            </figure>
+            <p>${quizz[i].title}</p>
+        </li>
+    `
 }
 //recebe o id do quiz que é pra abrir na tela2
 function AbrirQuizz(idQuizz) {
     document.querySelector("main .Tela1").classList.add("Desaparece");
     CarregarTela2(idQuizz);
-
 }
 
 function CarregarTela2(id) {
@@ -136,7 +147,6 @@ function VerificarPerguntasQuizz() {
 
 }
 
-//function só pra testar
 function Erro() {
     console.log("erro carregar tela1");
 }
@@ -209,13 +219,13 @@ function CarregarInformacoesTela2(resposta){
 }
 
 function ResultadoQuizz() {
+
     const totalPerguntas = perguntas.length; //totalPerguntas vai vir do quizz selecionado
     if(totalPerguntas === qtdPerguntasRespondidas){
         const telaQuizz = document.querySelector(".TelaQuizz");
         const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas) * 100 ) );
         qtdPerguntasRespondidas = 0;
         qtdDeAcertos = 0;
-
         let pegaIndexNivel;
         for (let i = (niveis.length - 1) ; i >= 0 ; i--){
             if( pegaIndexNivel === undefined ){ 
@@ -224,7 +234,6 @@ function ResultadoQuizz() {
                 }
             }
         }
-    
         telaQuizz.innerHTML+=`                    
         <div class="ResultadoQuizz">
             <div class="CaixaResultado">
