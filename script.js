@@ -1,4 +1,4 @@
-let quantidadePerguntas, qtdniveis, criaTituloQuizz;
+let quantidadePerguntas, qtdniveis, criaTituloQuizz, perguntas, niveis;
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
@@ -149,7 +149,7 @@ function proxCaixaQuizz() {
     if (proxCaixaQuizz !== null) {
         proxCaixaQuizz.scrollIntoView();
     } else {
-        setTimeout(ResultadoQuizz,2000);
+        ResultadoQuizz();
     }
 }
 
@@ -173,8 +173,8 @@ function SelecionarResposta(respSelecionada) {
 }
 
 function CarregarInformacoesTela2(resposta){
-    const perguntas = resposta.data.questions;
-    const nivel = resposta.data.levels[0];
+    perguntas = resposta.data.questions;
+    niveis = resposta.data.levels;
     document.querySelector('.Tela2 .BannerQuizz img').src = resposta.data.image;
     document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.data.title;
     const telaQuizz = document.querySelector(".TelaQuizz");
@@ -205,50 +205,41 @@ function CarregarInformacoesTela2(resposta){
         telaQuizzInnerHTML += `</div>
         </div>`
     }
-    telaQuizzInnerHTML += `<div class="ResultadoQuizz">
-        <div class="CaixaResultado">
-            <p class="TextoResultado">${nivel.title}</p>
-        </div>
-        <div class="Resultado">
-            <img src="${nivel.image}">
-            <p>${nivel.text}</p>
-        </div>
-    </div>
-    <div class="ReiniciarOuVoltar">
-        <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
-        <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
-    </div>`
     telaQuizz.innerHTML = telaQuizzInnerHTML;
 }
 
 function ResultadoQuizz() {
-    const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
+    const totalPerguntas = perguntas.length; //totalPerguntas vai vir do quizz selecionado
     if(totalPerguntas === qtdPerguntasRespondidas){
-        const selecResulQuizz = document.querySelector('.ResultadoQuizz');
-        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas)*100 ) );
+        qtdPerguntasRespondidas = 0;
+        const telaQuizz = document.querySelector(".TelaQuizz");
+        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas) * 100 ) );
 
-        // const niveis = [];
-        // let pegaIndexNivel;
-        // for (let i = 0 ; i < niveis.length ; i++){
-        //     if( pegaIndexNivel === undefined){ 
-        //         if (porcentagemDeAcertos >= niveis[i].minValue){
-        //             pegaIndexNivel = niveis.indexOf(niveis[i]);
-        //         }
-        //     }
-        // }
-        
-        // ${niveis[pegaIndexNivel].title} usar no TextoResultado dentro de CaixaResultado
-        // ${niveis[pegaIndexNivel].image} usar na imagem do Resultado
-        // ${niveis[pegaIndexNivel].text} usar no paragrafo do Resultado 
-        selecResulQuizz.innerHTML=`                    
-        <div class="CaixaResultado">
-            <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
+        let pegaIndexNivel;
+        for (let i = (niveis.length - 1) ; i >= 0 ; i--){
+            if( pegaIndexNivel === undefined ){ 
+                if (porcentagemDeAcertos >= niveis[i].minValue){
+                    pegaIndexNivel = niveis.indexOf(niveis[i]);
+                }
+            }
+        }
+    
+        telaQuizz.innerHTML+=`                    
+        <div class="ResultadoQuizz">
+            <div class="CaixaResultado">
+                <p class="TextoResultado">${porcentagemDeAcertos}% de acerto:${niveis[pegaIndexNivel].title}</p>
+            </div>
+            <div class="Resultado">
+                <img src="${niveis[pegaIndexNivel].image}">
+                <p>${niveis[pegaIndexNivel].text}</p>
+            </div>
         </div>
-        <div class="Resultado">
-            <img src="./Resultado.png">
-            <p>Parabéns Potterhead! Bem-vindx a Hogwarts, aproveite o loop infinito de comida e clique no botão abaixo para usar o vira-tempo e reiniciar este teste.</p>
+        <div class="ReiniciarOuVoltar">
+            <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
+            <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
         </div>
         `
+        const selecResulQuizz = document.querySelector('.ResultadoQuizz');
         selecResulQuizz.scrollIntoView();
     }
 }
