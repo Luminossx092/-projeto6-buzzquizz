@@ -182,7 +182,7 @@ function CarregarInformacoesTela2(resposta){
     let telaQuizzInnerHTML = '';
     for(let i = 0; i < perguntas.length; i++){
         telaQuizzInnerHTML += `<div class="CaixaQuizz NaoRespondida">
-        <div class="CaixaPergunta Primeira" style="background-color:${perguntas[i].color}">
+        <div class="CaixaPergunta" style="background-color:${perguntas[i].color}">
         <p class="TextoPergunta">${perguntas[i].title}></p>
     </div>
     <div class="Respostas">`
@@ -224,8 +224,10 @@ function CarregarInformacoesTela2(resposta){
 function ResultadoQuizz() {
     const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
     if(totalPerguntas === qtdPerguntasRespondidas){
-        const selecResulQuizz = document.querySelector('.ResultadoQuizz');
-        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas)*100 ) );
+        const telaQuizz = document.querySelector(".TelaQuizz");
+        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas) * 100 ) );
+        qtdPerguntasRespondidas = 0;
+        qtdDeAcertos = 0;
 
         // const niveis = [];
         // let pegaIndexNivel;
