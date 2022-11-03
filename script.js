@@ -119,8 +119,8 @@ function SelecionarResposta(respSelecionada) {
 function CarregarInformacoesTela2(resposta){
     const perguntas = resposta.data.questions;
     const nivel = resposta.data.levels[0];
-    document.querySelector('.Tela2 .BannerQuizz img').src = resposta.image;
-    document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.title;
+    document.querySelector('.Tela2 .BannerQuizz img').src = resposta.data.image;
+    document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.data.title;
     const telaQuizz = document.querySelector(".TelaQuizz");
     telaQuizz.innerHTML = "";
     for(let i = 0; i < perguntas.length; i++){
