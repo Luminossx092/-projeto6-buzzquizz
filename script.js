@@ -1,8 +1,8 @@
-let quantidadePerguntas, qtdniveis, criaTituloQuizz,
+let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
     listaIdDeQuizzUsuario, perguntas, niveis,
     urlQuizzCriado, criarQuizz = [], quizz = {},
     criaTextoPergunta, criaCorPergunta, answers = [],
-    questions = [], idQuizzAtual;
+    questions = [], idQuizzAtual, levels = [];
 
 const minTextoPergunta = 20;
 //Carrega a primeira tela, pede os quizz do servidor
@@ -149,14 +149,14 @@ function CarregarTela3_2() {
     for (let i = 1; i <= qtdNiveis; i++) {
 
         document.querySelector(".NiveisQuizz").innerHTML += `
-            <li class="perguntaQuizz">
+            <li class="perguntaQuizz nivel${i}">
                 <div class="marginPerguntas"></div>
                 <div><h2>Nível ${i}</h2></div>
                 <div class="InfoBasicasQuizz centralizar">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Título do nível">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="% de acerto mínima">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem do nível">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Descrição do nível">
+                    <input class="divsInfo tituloNivel" type="text" placeholder="Título do nível">
+                    <input class="divsInfo percentNivel" type="text" placeholder="% de acerto mínima">
+                    <input class="divsInfo urlNivel" type="text" placeholder="URL da imagem do nível">
+                    <input class="divsInfo descricaoNivel" type="text" placeholder="Descrição do nível">
                 </div>
                 <div class="marginPerguntas"></div>
             </li>
@@ -237,6 +237,8 @@ function VerificarPerguntasQuizz() {
             return ;
         }
     };
+
+
     //const tamanhoTexto = document.querySelector(".textoPergunta").length;
     //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
     //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
@@ -272,6 +274,49 @@ function VerificarPerguntasQuizz() {
     //CarregarTela3_2();
 }
 
+
+function VerificarNiveisQuizz() {
+    levels = [];
+
+    document.querySelectorAll(".NiveisQuizz .divsInfo").forEach((element) => {
+        if (element.value === "") {
+            return DadosInválidos();
+        }
+    });
+
+    for (let i = 1; i <= qtdNiveis; i++) {
+        levels.push({
+            title: document.querySelector(`.nivel${i} .tituloNivel`).value,
+            image: document.querySelector(`.nivel${i} .urlNivel`).value,
+            text: document.querySelector(`.nivel${i} .descricaoNivel`).value,
+            minValue: Number(document.querySelector(`.nivel${i} .percentNivel`).value)
+        })
+    }
+
+    let condicaoNivel = [];
+    const checaTituloNivel = levels.filter(titulo => titulo.title.length > 10).length === qtdNiveis;
+    const checaTextoNivel = levels.filter(texto => texto.text.length > 30).length === qtdNiveis;
+    const checaNumZeroNivel = levels.filter(valor => valor.minValue === 0).length === 1;
+    const checaValoresNivel = levels.filter(valores => (valores.minValue <= 100 || valores.minValue >=0)).length === qtdNiveis;
+    const checaUrlNivel = levels.filter(urlNivel => {
+        try {
+            const url = new URL(urlNivel.image);
+        } catch (erro) {
+            return false;
+        }
+        return true;
+    }).length === qtdNiveis;
+    condicaoNivel.push(checaTituloNivel, checaTextoNivel, checaNumZeroNivel, checaValoresNivel, checaUrlNivel);
+    console.log(condicaoNivel);
+    condicaoNivel = condicaoNivel.filter(elemento => elemento === false).length === 0;
+    if (condicaoNivel) {
+        quizz.levels = levels;
+        return;
+    } else {
+        return DadosInválidos();
+    }
+
+}
 
 function guardaRespostas() {
 
@@ -350,26 +395,26 @@ function CarregarInformacoesTela2(resposta) {
 
 function ResultadoQuizz() {
     const totalPerguntas = perguntas.length;
-    if(totalPerguntas === qtdPerguntasRespondidas){
+    if (totalPerguntas === qtdPerguntasRespondidas) {
         const telaQuizz = document.querySelector(".TelaQuizz");
         const porcentagemDeAcertos = (Math.round((qtdDeAcertos / totalPerguntas) * 100));
         qtdPerguntasRespondidas = 0;
         qtdDeAcertos = 0;
 
         let pegaIndexNivel;
-        for (let i = (niveis.length - 1) ; i >= 0 ; i--){
-            if( pegaIndexNivel === undefined ){ 
-                if (porcentagemDeAcertos >= niveis[i].minValue){
+        for (let i = (niveis.length - 1); i >= 0; i--) {
+            if (pegaIndexNivel === undefined) {
+                if (porcentagemDeAcertos >= niveis[i].minValue) {
                     pegaIndexNivel = i;
                 }
             }
         }
 
-        if(pegaIndexNivel === undefined) {
+        if (pegaIndexNivel === undefined) {
             pegaIndexNivel = 0;
         }
 
-        telaQuizz.innerHTML+=`                    
+        telaQuizz.innerHTML += `                    
             <div class="ResultadoQuizz">
                 <div class="CaixaResultado">
                     <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: ${niveis[pegaIndexNivel].title}</p>
