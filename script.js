@@ -1,4 +1,9 @@
-let quantidadePerguntas, qtdniveis, criaTituloQuizz, listaIdDeQuizzUsuario;
+let qtdPerguntas, qtdNiveis, criaTituloQuizz,
+    listaIdDeQuizzUsuario, urlQuizzCriado, criarQuizz = [],
+    quizz = {}, criaTextoPergunta, criaCorPergunta
+answers = [], questions = [];
+
+const minTextoPergunta = 20;
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
@@ -12,10 +17,10 @@ function CarregarTela1() {
     else {
         document.querySelector(".ListaQuizzesUsuario").classList.remove("Desaparece")
         document.querySelector("main .ListaQuizzesUsuario ul").innerHTML = "";
-        for(let i = 0; i < listaIdDeQuizzUsuario.length; i++){
+        for (let i = 0; i < listaIdDeQuizzUsuario.length; i++) {
             axios.get(`https://mock-api.driven.com.br/api/v4/buzzquizz/${listaIdDeQuizzUsuario[i]}`)
-            .then(RenderizarQuizzesDoUsuario)
-            .catch();
+                .then(RenderizarQuizzesDoUsuario)
+                .catch();
         }
     }
     const getQuizz = axios.get("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes");
@@ -83,43 +88,43 @@ function CarregarTela3() {
 
 function CarregarTela3_1() {
     //Limpa os inputs anteriores
-    document.querySelectorAll("input").forEach(element => element.value = "");
+    //document.querySelectorAll("input").forEach(element => element.value = "");
     document.querySelector("main .Tela3").classList.add("Desaparece");
     document.querySelector("main .Tela3_1").classList.remove("Desaparece");
     document.querySelector(".PerguntasQuizz").innerHTML = "";
 
-    qtdPerguntas = 3;
+    //qtdPerguntas = 3;
 
     //Carrega o local para inserir as perguntas
     for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelector(".PerguntasQuizz").innerHTML += `
-            <li class="perguntaQuizz">
+            <li class="perguntaQuizz pergunta${i}">
                 <div class="marginPerguntas"></div>
                 <div><h2>Pergunta ${i}</h2></div>
                 <div class="InfoBasicasQuizz centralizar">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Texto da pergunta">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Cor de fundo da pergunta">
+                    <input class="divsInfo textoPergunta" type="text" placeholder="Texto da pergunta">
+                    <input class="divsInfo corPergunta" type="text" placeholder="Cor de fundo da pergunta">
                 </div>
                 <div class="marginPerguntas"></div>
                 <div><h2>Resposta correta</h2></div>
                 <div class="InfoBasicasQuizz centralizar">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta correta">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem">
+                    <input class="divsInfo respostaCorreta" type="text" placeholder="Resposta correta">
+                    <input class="divsInfo urlrespostaCorreta" type="text" placeholder="URL da imagem">
                 </div>
                 <div class="marginPerguntas"></div>
                 <div><h2>Resposta incorreta</h2></div>
                 <div class="InfoBasicasQuizz centralizar marginEntreErradas">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 1">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 1">
+                    <input class="divsInfo respostaIncorreta" type="text" placeholder="Resposta incorreta 1">
+                    <input class="divsInfo urlRespostaIncorreta" type="text" placeholder="URL da imagem 1">
                 </div>
                 <div class="InfoBasicasQuizz centralizar marginEntreErradas">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 2">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 2">
+                    <input class="divsInfo respostaIncorreta" type="text" placeholder="Resposta incorreta 2">
+                    <input class="divsInfo urlRespostaIncorreta" type="text" placeholder="URL da imagem 2">
                 </div>
                 <div class="InfoBasicasQuizz centralizar">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="Resposta incorreta 3">
-                    <input class="divsInfo TituloQuizz" type="text" placeholder="URL da imagem 3">
+                    <input class="divsInfo respostaIncorreta" type="text" placeholder="Resposta incorreta 3">
+                    <input class="divsInfo urlRespostaIncorreta" type="text" placeholder="URL da imagem 3">
                 </div>
                 <div class="marginPerguntas"></div>
             </li>
@@ -132,12 +137,12 @@ function CarregarTela3_1() {
 
 function CarregarTela3_2() {
     //Limpa os inputs anteriores
-    document.querySelectorAll("input").forEach(element => element.value = "");
+    //document.querySelectorAll("input").forEach(element => element.value = "");
     document.querySelector("main .Tela3_1").classList.add("Desaparece");
     document.querySelector("main .Tela3_2").classList.remove("Desaparece");
     document.querySelector(".NiveisQuizz").innerHTML = "";
 
-    qtdNiveis = 2;
+    //qtdNiveis = 2;
 
     //Carrega o local para inserir os níveis
     for (let i = 1; i <= qtdNiveis; i++) {
@@ -159,27 +164,29 @@ function CarregarTela3_2() {
 }
 // ----------------------------------------------------------- Criando Quizz (checando dados das infos)
 
-function VerificarInformacoesBasicasPergunta() {
-    const DadosInválidos = function () { alert("Dados inválidos, preencha os dados corretamente!"); }
+function DadosInválidos() {
+    alert("Dados inválidos, preencha os dados corretamente!");
+}
 
+function VerificarInformacoesBasicasPergunta() {
     const tamanhoTitulo = document.querySelector(".Tela3 .TituloQuizz").value.length;
-    //const url = document.querySelector(".Tela3 .URLImagemQuizz");
+    urlQuizzCriado = document.querySelector(".Tela3 .URLImagemQuizz").value;
     tituloQuizz = String(document.querySelector(".Tela3 .TituloQuizz").value);
 
     qtdPerguntas = Number(document.querySelector(".Tela3 .QuantidadePerguntasQuizz").value);
-    qtdniveis = Number(document.querySelector(".Tela3 .QuantidadesNiveisQuizz").value);
-    /*
+    qtdNiveis = Number(document.querySelector(".Tela3 .QuantidadesNiveisQuizz").value);
+
     if (tamanhoTitulo < 20 || tamanhoTitulo > 65 || qtdPerguntas < 3 || qtdNiveis < 2) {
         DadosInválidos();
         return;
-    }
-    try {
+    } try {
         let url = new URL(document.querySelector(".Tela3 .URLImagemQuizz").value);
     } catch (err) {
-        DadosInválidos;
+        DadosInválidos();
         return;
     }
-    */
+    quizz.title = tituloQuizz;
+    quizz.image = urlQuizzCriado;
     CarregarTela3_1();
 }
 
@@ -188,7 +195,58 @@ function VerificarInformacoesBasicasPergunta() {
 // ----------------------------------------------------------- Criando Quizz (checando dados das perguntas)
 
 function VerificarPerguntasQuizz() {
-    CarregarTela3_2();
+
+    for (let i = 1; i <= qtdPerguntas; i++) {
+
+        document.querySelectorAll(`.pergunta${i} .textoPergunta`).forEach((element) => {
+            if (element.value !== "") {
+                questions.push({
+                    text: element.value,
+                    color: element.nextElementSibling.value
+                })
+            }
+        });
+
+        document.querySelectorAll(`.pergunta${i} .respostaCorreta`).forEach((element) => {
+            if (element.value !== "") {
+                answers.push({
+                    text: element.value,
+                    image: element.nextElementSibling.value,
+                    isCorrectAnswer: true
+                })
+            }
+        });
+
+        document.querySelectorAll(`.pergunta${i} .respostaIncorreta`).forEach((element) => {
+            if (element.value !== "") {
+                answers.push({
+                    text: element.value,
+                    image: element.nextElementSibling.value,
+                    isCorrectAnswer: false
+                })
+            }
+        });
+        if (answers.length > 0) {
+            const index = i - 1;
+            questions[index].answers = answers;
+            answers = [];
+        } else {
+            return DadosInválidos();
+        }
+    };
+
+    console.log(questions)
+    console.log(answers)
+    //const tamanhoTexto = document.querySelector(".textoPergunta").length;
+    //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
+    //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
+    //console.log(condicao);
+    //CarregarTela3_2();
+}
+
+
+function guardaRespostas() {
+
 }
 
 function Erro() {
@@ -203,7 +261,7 @@ function proxCaixaQuizz() {
     if (proxCaixaQuizz !== null) {
         proxCaixaQuizz.scrollIntoView();
     } else {
-        setTimeout(ResultadoQuizz,2000);
+        setTimeout(ResultadoQuizz, 2000);
     }
 }
 
@@ -226,7 +284,7 @@ function SelecionarResposta(respSelecionada) {
     }
 }
 
-function CarregarInformacoesTela2(resposta){
+function CarregarInformacoesTela2(resposta) {
     const perguntas = resposta.data.questions;
     const nivel = resposta.data.levels[0];
     document.querySelector('.Tela2 .BannerQuizz img').src = resposta.data.image;
@@ -264,9 +322,9 @@ function CarregarInformacoesTela2(resposta){
 
 function ResultadoQuizz() {
     const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
-    if(totalPerguntas === qtdPerguntasRespondidas){
+    if (totalPerguntas === qtdPerguntasRespondidas) {
         const telaQuizz = document.querySelector(".TelaQuizz");
-        const porcentagemDeAcertos = ( Math.round( (qtdDeAcertos/totalPerguntas) * 100 ) );
+        const porcentagemDeAcertos = (Math.round((qtdDeAcertos / totalPerguntas) * 100));
         qtdPerguntasRespondidas = 0;
         qtdDeAcertos = 0;
 
@@ -279,11 +337,11 @@ function ResultadoQuizz() {
         //         }
         //     }
         // }
-        
+
         // ${niveis[pegaIndexNivel].title} usar no TextoResultado dentro de CaixaResultado
         // ${niveis[pegaIndexNivel].image} usar na imagem do Resultado
         // ${niveis[pegaIndexNivel].text} usar no paragrafo do Resultado 
-        selecResulQuizz.innerHTML=`                    
+        selecResulQuizz.innerHTML = `                    
         <div class="CaixaResultado">
             <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
         </div>
@@ -292,7 +350,7 @@ function ResultadoQuizz() {
             <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
         </div>
         `
-        
+
         selecResulQuizz.scrollIntoView();
     }
 }
