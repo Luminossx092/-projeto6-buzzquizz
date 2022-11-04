@@ -163,6 +163,12 @@ function CarregarTela3_2() {
         `
     }
 }
+
+function CarregarTela3_3(){
+    document.querySelector("main .Tela3_2").classList.add("Desaparece");
+    document.querySelector("main .Tela3_3").classList.remove("Desaparece");
+
+}
 // ----------------------------------------------------------- Criando Quizz (checando dados das infos)
 
 function DadosInválidos() {
@@ -244,19 +250,19 @@ function VerificarPerguntasQuizz() {
     //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
     //console.log(condicao);
     if (questions.filter((t) => t.text.length < 20).length == 0 || 
-    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0|| 
-    questions.answers.filter((a)=>a.text == "") || 
+    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == questions.length|| 
     document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
         DadosInválidos();
         return;
     }
-    for(let i = 0; i < questions.length; i++){
+    /*for(let i = 0; i < questions.length; i++){
         if(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}).length < 1){
             console.log(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}))
             DadosInválidos();
+            alert(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}))
             return;
         }
-    }
+    }*/
     questions.forEach(
         (q)=>{
             q.answers.forEach((a)=>{
@@ -264,15 +270,15 @@ function VerificarPerguntasQuizz() {
                     console.log(new URL(a.image))
                     new URL(a.image);
                 } catch (error) {
+                    console.log(a)
                     DadosInválidos();
                     return;
                 }
             })  
         }
     )
-    //CarregarTela3_2();
+    CarregarTela3_2();
 }
-
 
 function VerificarNiveisQuizz() {
     levels = [];
@@ -310,11 +316,18 @@ function VerificarNiveisQuizz() {
     condicaoNivel = condicaoNivel.filter(elemento => elemento === false).length === 0;
     if (condicaoNivel) {
         quizz.levels = levels;
-        return;
+        CriarQuiz()
     } else {
         return DadosInválidos();
     }
 
+}
+
+function CriarQuiz(){
+    console.log(quizz);
+    /*axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz)
+    .then(CarregarTela3_3)
+    .catch(ErroRenderQuizzes)*/
 }
 
 function guardaRespostas() {
