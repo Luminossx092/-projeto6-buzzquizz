@@ -196,7 +196,7 @@ function VerificarInformacoesBasicasPergunta() {
 // ----------------------------------------------------------- Criando Quizz (checando dados das perguntas)
 
 function VerificarPerguntasQuizz() {
-
+    questions = [];
     for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelectorAll(`.pergunta${i} .textoPergunta`).forEach((element) => {
@@ -232,16 +232,43 @@ function VerificarPerguntasQuizz() {
             questions[index].answers = answers;
             answers = [];
         } else {
-            return DadosInválidos();
+            DadosInválidos();
+            questions = [];
+            return ;
         }
     };
-
-    console.log(questions)
-    console.log(answers)
     //const tamanhoTexto = document.querySelector(".textoPergunta").length;
     //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
     //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
     //console.log(condicao);
+    /*if (questions.filter((t) => t.text.length < 20).length == 0 || 
+    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0|| 
+    questions.answers.filter((a)=>a.text == "") || 
+    document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
+        DadosInválidos();
+        return;
+    } */
+    for(let i = 0; i < questions.length; i++){
+        if(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}).length < 1){
+            console.log(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}))
+            DadosInválidos();
+            return;
+        }
+    }
+    /*console.log(questions[0].answers)
+    questions.forEach(
+        (q)=>{
+            q.answers.forEach((a)=>{
+                try {
+                    console.log(new URL(a.image))
+                    new URL(a.image);
+                } catch (error) {
+                    DadosInválidos();
+                    return;
+                }
+            })  
+        }
+    )*/
     //CarregarTela3_2();
 }
 
@@ -328,29 +355,6 @@ function ResultadoQuizz() {
         const porcentagemDeAcertos = (Math.round((qtdDeAcertos / totalPerguntas) * 100));
         qtdPerguntasRespondidas = 0;
         qtdDeAcertos = 0;
-
-        // const niveis = [];
-        // let pegaIndexNivel;
-        // for (let i = 0 ; i < niveis.length ; i++){
-        //     if( pegaIndexNivel === undefined){ 
-        //         if (porcentagemDeAcertos >= niveis[i].minValue){
-        //             pegaIndexNivel = niveis.indexOf(niveis[i]);
-        //         }
-        //     }
-        // }
-
-        // ${niveis[pegaIndexNivel].title} usar no TextoResultado dentro de CaixaResultado
-        // ${niveis[pegaIndexNivel].image} usar na imagem do Resultado
-        // ${niveis[pegaIndexNivel].text} usar no paragrafo do Resultado 
-        selecResulQuizz.innerHTML = `                    
-        <div class="CaixaResultado">
-            <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: Você é praticamente um aluno de Hogwarts!</p>
-        </div>
-        <div class="ReiniciarOuVoltar">
-            <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
-            <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
-        </div>
-        `
 
         let pegaIndexNivel;
         for (let i = (niveis.length - 1) ; i >= 0 ; i--){
