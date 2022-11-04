@@ -252,10 +252,6 @@ function VerificarPerguntasQuizz() {
     if (questions.filter((t) => t.text.length < 20).length > 0 || 
     questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length < questions.length|| 
     document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
-        console.log(questions.length)
-        console.log(questions.filter((t) => t.text.length < 20).length)
-        console.log(questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length)
-        console.log(document.querySelectorAll('.Tela3 .respostaCorreta').length)
         DadosInválidos();
         return;
     }
@@ -271,10 +267,8 @@ function VerificarPerguntasQuizz() {
         (q)=>{
             q.answers.forEach((a)=>{
                 try {
-                    console.log(new URL(a.image))
                     new URL(a.image);
                 } catch (error) {
-                    console.log(a)
                     DadosInválidos();
                     return;
                 }
