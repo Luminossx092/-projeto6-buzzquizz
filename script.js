@@ -3,6 +3,7 @@ let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
     urlQuizzCriado, criarQuizz = {},
     criaTextoPergunta, criaCorPergunta, answers = [],
     questions = [], idQuizzAtual, levels = [];
+    qtdUrlRespostas = 0, qtdRespostasAdd = 0;
 
 const minTextoPergunta = 20;
 //Carrega a primeira tela, pede os quizz do servidor
@@ -163,6 +164,12 @@ function CarregarTela3_2() {
         `
     }
 }
+
+function CarregarTela3_3() {
+    document.querySelector("main .Tela3_2").classList.add("Desaparece");
+    document.querySelector("main .Tela3_3").classList.remove("Desaparece");
+
+}
 // ----------------------------------------------------------- Criando Quizz (checando dados das infos)
 
 function DadosInválidos() {
@@ -196,6 +203,8 @@ function VerificarInformacoesBasicasPergunta() {
 
 function VerificarPerguntasQuizz() {
     questions = [];
+    qtdRespostasAdd = 0;
+    qtdUrlRespostas = 0;
     for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelectorAll(`.pergunta${i} .textoPergunta`).forEach((element) => {
@@ -208,7 +217,8 @@ function VerificarPerguntasQuizz() {
         });
 
         document.querySelectorAll(`.pergunta${i} .respostaCorreta`).forEach((element) => {
-            if (element.value !== "") {
+            if (element.value !== "" && element.nextElementSibling.value !== "") {
+                qtdRespostasAdd++
                 answers.push({
                     text: element.value,
                     image: element.nextElementSibling.value,
@@ -218,7 +228,8 @@ function VerificarPerguntasQuizz() {
         });
 
         document.querySelectorAll(`.pergunta${i} .respostaIncorreta`).forEach((element) => {
-            if (element.value !== "") {
+            if (element.value !== "" && element.nextElementSibling.value !== "") {
+                qtdRespostasAdd++
                 answers.push({
                     text: element.value,
                     image: element.nextElementSibling.value,
@@ -226,7 +237,7 @@ function VerificarPerguntasQuizz() {
                 })
             }
         });
-        if (answers.length > 0) {
+        if (answers.length > 1) {
             const index = i - 1;
             questions[index].answers = answers;
             answers = [];
@@ -238,38 +249,34 @@ function VerificarPerguntasQuizz() {
 
     console.log(questions);
 
-
-    if (questions.filter((t) => t.text.length < 20).length == 0 ||
-        questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0 ||
-        questions.answers.filter((a) => a.text == "") ||
-        document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
-        DadosInválidos();
-        return;
+    let condicaoPergunta = [];
+    const checkTextoPergunta = questions.filter((t) =>
+        t.text.length >= 20).length === qtdPerguntas;
+    const checkColorPergunta = questions.filter((c) =>
+        c.color.match(/^#([0-9A-F]{3}){1,2}$/g)).length === qtdPerguntas;
+    for (let i = 0; i < qtdPerguntas; i++) {
+        const aumenta = questions[i].answers.filter(urlPergunta => {
+            try {
+                const url = new URL(urlPergunta.image);
+            } catch (erro) {
+                return false;
+            } return true;
+        }).length
+        qtdUrlRespostas = qtdUrlRespostas + aumenta;
     }
-    //for (let i = 0; i < questions.length; i++) {
-    //    if (questions[i].answers.filter((a) => { a.isCorrectAnswer == true }).length < 1) {
-    //        console.log(questions[i].answers.filter((a) => { a.isCorrectAnswer == true }))
-    //        DadosInválidos();
-    //         return;
-    //   }
-    //}
-    questions.forEach(
-        (q) => {
-            q.answers.forEach((a) => {
-                try {
-                    console.log(new URL(a.image))
-                    new URL(a.image);
-                } catch (error) {
-                    DadosInválidos();
-                    return;
-                }
-            })
-        }
-    )
-    criarQuizz.questions = questions;
-    CarregarTela3_2();
-}
+    const checkUrlPergunta = qtdUrlRespostas === qtdRespostasAdd;
+    
+    condicaoPergunta.push(checkTextoPergunta, checkColorPergunta, checkUrlPergunta);
+    console.log(condicaoPergunta);
 
+    condicaoPergunta = condicaoPergunta.filter(elemento => elemento === false).length === 0;
+    if (condicaoPergunta) {
+        criarQuizz.questions = questions;
+        CarregarTela3_2();
+    } else {
+        return DadosInválidos();
+    }
+}
 
 function VerificarNiveisQuizz() {
     levels = [];
@@ -290,11 +297,15 @@ function VerificarNiveisQuizz() {
     }
 
     let condicaoNivel = [];
-    const checaTituloNivel = levels.filter(titulo => titulo.title.length > 10).length === qtdNiveis;
-    const checaTextoNivel = levels.filter(texto => texto.text.length > 30).length === qtdNiveis;
-    const checaNumZeroNivel = levels.filter(valor => valor.minValue === 0).length === 1;
-    const checaValoresNivel = levels.filter(valores => (valores.minValue <= 100 || valores.minValue >= 0)).length === qtdNiveis;
-    const checaUrlNivel = levels.filter(urlNivel => {
+    const checkTituloNivel = levels.filter(titulo =>
+        titulo.title.length > 10).length === qtdNiveis;
+    const checkTextoNivel = levels.filter(texto =>
+        texto.text.length > 30).length === qtdNiveis;
+    const checkNumZeroNivel = levels.filter(valor =>
+        valor.minValue === 0).length === 1;
+    const checkValoresNivel = levels.filter(valores =>
+        (valores.minValue <= 100 || valores.minValue >= 0)).length === qtdNiveis;
+    const checkUrlNivel = levels.filter(urlNivel => {
         try {
             const url = new URL(urlNivel.image);
         } catch (erro) {
@@ -302,16 +313,23 @@ function VerificarNiveisQuizz() {
         }
         return true;
     }).length === qtdNiveis;
-    condicaoNivel.push(checaTituloNivel, checaTextoNivel, checaNumZeroNivel, checaValoresNivel, checaUrlNivel);
+    condicaoNivel.push(checkTituloNivel, checkTextoNivel, checkNumZeroNivel, checkValoresNivel, checkUrlNivel);
     console.log(condicaoNivel);
     condicaoNivel = condicaoNivel.filter(elemento => elemento === false).length === 0;
     if (condicaoNivel) {
         criarQuizz.levels = levels;
-        return;
+        //CriarQuiz();
     } else {
         return DadosInválidos();
     }
 
+}
+
+function CriarQuiz() {
+    console.log(quizz);
+    /*axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz)
+    .then(CarregarTela3_3)
+    .catch(ErroRenderQuizzes)*/
 }
 
 function guardaRespostas() {
