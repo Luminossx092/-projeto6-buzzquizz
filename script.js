@@ -1,6 +1,6 @@
 let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
     listaIdDeQuizzUsuario, perguntas, niveis,
-    urlQuizzCriado, criarQuizz = [], quizz = {},
+    urlQuizzCriado, criarQuizz = {},
     criaTextoPergunta, criaCorPergunta, answers = [],
     questions = [], idQuizzAtual, levels = [];
 
@@ -186,11 +186,10 @@ function VerificarInformacoesBasicasPergunta() {
         DadosInválidos();
         return;
     }
-    quizz.title = tituloQuizz;
-    quizz.image = urlQuizzCriado;
+    criarQuizz.title = tituloQuizz;
+    criarQuizz.image = urlQuizzCriado;
     CarregarTela3_1();
 }
-
 
 
 // ----------------------------------------------------------- Criando Quizz (checando dados das perguntas)
@@ -233,33 +232,30 @@ function VerificarPerguntasQuizz() {
             answers = [];
         } else {
             DadosInválidos();
-            questions = [];
-            return ;
+            return;
         }
     };
 
+    console.log(questions);
 
-    //const tamanhoTexto = document.querySelector(".textoPergunta").length;
-    //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
-    //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
-    //console.log(condicao);
-    if (questions.filter((t) => t.text.length < 20).length == 0 || 
-    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0|| 
-    questions.answers.filter((a)=>a.text == "") || 
-    document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
+
+    if (questions.filter((t) => t.text.length < 20).length == 0 ||
+        questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0 ||
+        questions.answers.filter((a) => a.text == "") ||
+        document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
         DadosInválidos();
         return;
     }
-    for(let i = 0; i < questions.length; i++){
-        if(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}).length < 1){
-            console.log(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}))
-            DadosInválidos();
-            return;
-        }
-    }
+    //for (let i = 0; i < questions.length; i++) {
+    //    if (questions[i].answers.filter((a) => { a.isCorrectAnswer == true }).length < 1) {
+    //        console.log(questions[i].answers.filter((a) => { a.isCorrectAnswer == true }))
+    //        DadosInválidos();
+    //         return;
+    //   }
+    //}
     questions.forEach(
-        (q)=>{
-            q.answers.forEach((a)=>{
+        (q) => {
+            q.answers.forEach((a) => {
                 try {
                     console.log(new URL(a.image))
                     new URL(a.image);
@@ -267,10 +263,11 @@ function VerificarPerguntasQuizz() {
                     DadosInválidos();
                     return;
                 }
-            })  
+            })
         }
     )
-    //CarregarTela3_2();
+    criarQuizz.questions = questions;
+    CarregarTela3_2();
 }
 
 
@@ -296,7 +293,7 @@ function VerificarNiveisQuizz() {
     const checaTituloNivel = levels.filter(titulo => titulo.title.length > 10).length === qtdNiveis;
     const checaTextoNivel = levels.filter(texto => texto.text.length > 30).length === qtdNiveis;
     const checaNumZeroNivel = levels.filter(valor => valor.minValue === 0).length === 1;
-    const checaValoresNivel = levels.filter(valores => (valores.minValue <= 100 || valores.minValue >=0)).length === qtdNiveis;
+    const checaValoresNivel = levels.filter(valores => (valores.minValue <= 100 || valores.minValue >= 0)).length === qtdNiveis;
     const checaUrlNivel = levels.filter(urlNivel => {
         try {
             const url = new URL(urlNivel.image);
@@ -309,7 +306,7 @@ function VerificarNiveisQuizz() {
     console.log(condicaoNivel);
     condicaoNivel = condicaoNivel.filter(elemento => elemento === false).length === 0;
     if (condicaoNivel) {
-        quizz.levels = levels;
+        criarQuizz.levels = levels;
         return;
     } else {
         return DadosInválidos();
