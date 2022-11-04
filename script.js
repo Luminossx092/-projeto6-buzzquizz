@@ -1,5 +1,5 @@
 let quantidadePerguntas, qtdniveis, criaTituloQuizz, listaIdDeQuizzUsuario, perguntas, niveis;
-
+let idQuizzAtual;
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
     document.querySelector("main .Tela2").classList.add("Desaparece");
@@ -59,6 +59,7 @@ function RenderizarQuizzesDoUsuario(resposta) {
 }
 //recebe o id do quiz que é pra abrir na tela2
 function AbrirQuizz(idQuizz) {
+    idQuizzAtual = idQuizz;
     document.querySelector("main .Tela1").classList.add("Desaparece");
     CarregarTela2(idQuizz);
 }
@@ -278,7 +279,7 @@ function ResultadoQuizz() {
                 }
             }
         }
-        
+
         if(pegaIndexNivel === undefined) {
             pegaIndexNivel = 0;
         }
@@ -293,7 +294,7 @@ function ResultadoQuizz() {
                     <p>${niveis[pegaIndexNivel].text}</p>
                 </div>
                 <div class="ReiniciarOuVoltar">
-                <button class="BotaoReiniciarQuizz">Reiniciar Quizz</button>
+                <button class="BotaoReiniciarQuizz" onclick="AbrirQuizz(${idQuizzAtual})" >Reiniciar Quizz</button>
                 <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
             </div>
         `;
