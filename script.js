@@ -1,10 +1,10 @@
-let qtdPerguntas, qtdNiveis, criaTituloQuizz,
-    listaIdDeQuizzUsuario, urlQuizzCriado, criarQuizz = [],
-    quizz = {}, criaTextoPergunta, criaCorPergunta
-answers = [], questions = [];
+let quantidadePerguntas, qtdniveis, criaTituloQuizz,
+    listaIdDeQuizzUsuario, perguntas, niveis,
+    urlQuizzCriado, criarQuizz = [], quizz = {},
+    criaTextoPergunta, criaCorPergunta, answers = [],
+    questions = [], idQuizzAtual;
 
 const minTextoPergunta = 20;
-
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
     document.querySelector("main .Tela2").classList.add("Desaparece");
@@ -64,6 +64,7 @@ function RenderizarQuizzesDoUsuario(resposta) {
 }
 //recebe o id do quiz que é pra abrir na tela2
 function AbrirQuizz(idQuizz) {
+    idQuizzAtual = idQuizz;
     document.querySelector("main .Tela1").classList.add("Desaparece");
     CarregarTela2(idQuizz);
 }
@@ -285,8 +286,8 @@ function SelecionarResposta(respSelecionada) {
 }
 
 function CarregarInformacoesTela2(resposta) {
-    const perguntas = resposta.data.questions;
-    const nivel = resposta.data.levels[0];
+    perguntas = resposta.data.questions;
+    niveis = resposta.data.levels;
     document.querySelector('.Tela2 .BannerQuizz img').src = resposta.data.image;
     document.querySelector('.Tela2 .TituloBanner').innerHTML = resposta.data.title;
     const telaQuizz = document.querySelector(".TelaQuizz");
@@ -321,8 +322,8 @@ function CarregarInformacoesTela2(resposta) {
 }
 
 function ResultadoQuizz() {
-    const totalPerguntas = 2; //totalPerguntas vai vir do quizz selecionado
-    if (totalPerguntas === qtdPerguntasRespondidas) {
+    const totalPerguntas = perguntas.length;
+    if(totalPerguntas === qtdPerguntasRespondidas){
         const telaQuizz = document.querySelector(".TelaQuizz");
         const porcentagemDeAcertos = (Math.round((qtdDeAcertos / totalPerguntas) * 100));
         qtdPerguntasRespondidas = 0;
@@ -351,6 +352,34 @@ function ResultadoQuizz() {
         </div>
         `
 
+        let pegaIndexNivel;
+        for (let i = (niveis.length - 1) ; i >= 0 ; i--){
+            if( pegaIndexNivel === undefined ){ 
+                if (porcentagemDeAcertos >= niveis[i].minValue){
+                    pegaIndexNivel = i;
+                }
+            }
+        }
+
+        if(pegaIndexNivel === undefined) {
+            pegaIndexNivel = 0;
+        }
+
+        telaQuizz.innerHTML+=`                    
+            <div class="ResultadoQuizz">
+                <div class="CaixaResultado">
+                    <p class="TextoResultado">${porcentagemDeAcertos}% de acerto: ${niveis[pegaIndexNivel].title}</p>
+                </div>
+                <div class="Resultado">
+                    <img src="${niveis[pegaIndexNivel].image}">
+                    <p>${niveis[pegaIndexNivel].text}</p>
+                </div>
+                <div class="ReiniciarOuVoltar">
+                <button class="BotaoReiniciarQuizz" onclick="AbrirQuizz(${idQuizzAtual})" >Reiniciar Quizz</button>
+                <p class="VoltarHome" onclick="CarregarTela1()">Voltar pra home</p>
+            </div>
+        `;
+        const selecResulQuizz = document.querySelector('.ResultadoQuizz');
         selecResulQuizz.scrollIntoView();
     }
 }
