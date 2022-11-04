@@ -275,9 +275,12 @@ function ResultadoQuizz() {
             if( pegaIndexNivel === undefined ){ 
                 if (porcentagemDeAcertos >= niveis[i].minValue){
                     pegaIndexNivel = i;
-
                 }
             }
+        }
+        
+        if(pegaIndexNivel === undefined) {
+            pegaIndexNivel = 0;
         }
 
         telaQuizz.innerHTML+=`                    
