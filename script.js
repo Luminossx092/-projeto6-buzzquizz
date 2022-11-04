@@ -243,13 +243,13 @@ function VerificarPerguntasQuizz() {
     //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
     //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
     //console.log(condicao);
-    /*if (questions.filter((t) => t.text.length < 20).length == 0 || 
+    if (questions.filter((t) => t.text.length < 20).length == 0 || 
     questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == 0|| 
     questions.answers.filter((a)=>a.text == "") || 
     document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
         DadosInválidos();
         return;
-    } */
+    }
     for(let i = 0; i < questions.length; i++){
         if(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}).length < 1){
             console.log(questions[i].answers.filter((a)=>{a.isCorrectAnswer == true}))
@@ -257,7 +257,6 @@ function VerificarPerguntasQuizz() {
             return;
         }
     }
-    /*console.log(questions[0].answers)
     questions.forEach(
         (q)=>{
             q.answers.forEach((a)=>{
@@ -270,7 +269,7 @@ function VerificarPerguntasQuizz() {
                 }
             })  
         }
-    )*/
+    )
     //CarregarTela3_2();
 }
 
