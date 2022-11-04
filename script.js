@@ -182,7 +182,7 @@ function VerificarInformacoesBasicasPergunta() {
 
     qtdPerguntas = Number(document.querySelector(".Tela3 .QuantidadePerguntasQuizz").value);
     qtdNiveis = Number(document.querySelector(".Tela3 .QuantidadesNiveisQuizz").value);
-
+/*
     if (tamanhoTitulo < 20 || tamanhoTitulo > 65 || qtdPerguntas < 3 || qtdNiveis < 2) {
         DadosInválidos();
         return;
@@ -191,7 +191,7 @@ function VerificarInformacoesBasicasPergunta() {
     } catch (err) {
         DadosInválidos();
         return;
-    }
+    }*/
     quizz.title = tituloQuizz;
     quizz.image = urlQuizzCriado;
     CarregarTela3_1();
@@ -249,9 +249,13 @@ function VerificarPerguntasQuizz() {
     //const confereResposta = document.querySelector(".respostaCorreta").value !== "";
     //const condicao = (tamanhoTexto < minTextoPergunta, confereResposta);
     //console.log(condicao);
-    if (questions.filter((t) => t.text.length < 20).length == 0 || 
-    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length == questions.length|| 
+    if (questions.filter((t) => t.text.length < 20).length > 0 || 
+    questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length < questions.length|| 
     document.querySelectorAll('.Tela3 .respostaCorreta').length < questions.length) {
+        console.log(questions.length)
+        console.log(questions.filter((t) => t.text.length < 20).length)
+        console.log(questions.filter((c) => c.color.match(/[0-9A-Fa-f]{6}/g)).length)
+        console.log(document.querySelectorAll('.Tela3 .respostaCorreta').length)
         DadosInválidos();
         return;
     }
