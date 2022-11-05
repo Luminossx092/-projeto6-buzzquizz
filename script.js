@@ -1,11 +1,24 @@
+// ------------------------------------------- Variáveis Globais
+
 let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
     listaIdDeQuizzUsuario, perguntas, niveis,
-    urlQuizzCriado, criarQuizz = {},
+    urlQuizzCriado, criarQuizz = {}, idQuizzUser,
     criaTextoPergunta, criaCorPergunta, answers = [],
-    questions = [], idQuizzAtual, levels = [];
-    qtdUrlRespostas = 0, qtdRespostasAdd = 0;
+    questions = [], idQuizzAtual, levels = [],
+    qtdUrlRespostas = 0, qtdRespostasAdd = 0, quizzUserIds;
 
 const minTextoPergunta = 20;
+
+
+// Verificando se o usuário possui algum quizz
+
+if (localStorage.getItem("idQuizzUser") === null) {
+    quizzUserIds =[];
+} else {
+    quizzUserIds = JSON.parse(localStorage.getItem("idQuizzUser"));
+}
+
+
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
     document.querySelector("main .Tela2").classList.add("Desaparece");
@@ -48,8 +61,11 @@ function RenderizarUltimosXQuizzesServidor(resposta) {
     }
 }
 
+// ------------------------------------------- Função para erro ao carregar fazer solicitação ao servidor
+
 function ErroRenderQuizzes(erro) {
     console.log(erro);
+    alert("Ocorreu um erro ao fazer uma solicitação com o servidor!");
 }
 
 function RenderizarQuizzesDoUsuario(resposta) {
@@ -78,7 +94,7 @@ function CarregarTela2(id) {
 }
 
 
-// ----------------------------------------------------------- Criando Quizz
+// ------------------------------------------- Abre a tela para criar Quizz pt1
 
 function CarregarTela3() {
     document.querySelector("main .Tela1").classList.add("Desaparece");
@@ -86,18 +102,19 @@ function CarregarTela3() {
 }
 
 
-// ----------------------------------------------------------- Criando Quizz (Perguntas)
+// ------------------------------------------- Abre a tela para receber as perguntas do Quizz (Perguntas) pt2
+// ------------------------------------------- de acordo com as informações recebidas da VerificarInformacoesBasicasPergunta
 
 function CarregarTela3_1() {
-    //Limpa os inputs anteriores
-    //document.querySelectorAll("input").forEach(element => element.value = "");
+    // Limpa os inputs anteriores
+    document.querySelectorAll("input").forEach(element => element.value = "");
+
+    // Troca as telas
     document.querySelector("main .Tela3").classList.add("Desaparece");
     document.querySelector("main .Tela3_1").classList.remove("Desaparece");
     document.querySelector(".PerguntasQuizz").innerHTML = "";
 
-    //qtdPerguntas = 3;
-
-    //Carrega o local para inserir as perguntas
+    // Carrega o HTML para inserir as perguntas
     for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelector(".PerguntasQuizz").innerHTML += `
@@ -135,18 +152,19 @@ function CarregarTela3_1() {
 }
 
 
-// ----------------------------------------------------------- Criando Quizz (Níveis)
+// ------------------------------------------- Abre a tela para receber  os niveis do Quizz (Niveis) pt3
+// ------------------------------------------- de acordo com as informações recebidas da VerificarInformacoesBasicasPergunta
 
 function CarregarTela3_2() {
     //Limpa os inputs anteriores
-    //document.querySelectorAll("input").forEach(element => element.value = "");
+    document.querySelectorAll("input").forEach(element => element.value = "");
+
+    // Troca as telas
     document.querySelector("main .Tela3_1").classList.add("Desaparece");
     document.querySelector("main .Tela3_2").classList.remove("Desaparece");
     document.querySelector(".NiveisQuizz").innerHTML = "";
 
-    //qtdNiveis = 2;
-
-    //Carrega o local para inserir os níveis
+    // Carrega o HMTL para inserir os níveis
     for (let i = 1; i <= qtdNiveis; i++) {
 
         document.querySelector(".NiveisQuizz").innerHTML += `
@@ -165,16 +183,35 @@ function CarregarTela3_2() {
     }
 }
 
-function CarregarTela3_3() {
+
+// ------------------------------------------- Abre a tela de sucesso da criação do Quizz (Sucesso) pt4
+// ------------------------------------------- com o quiz criado pronto para ser testado
+
+
+function CarregarTela3_3(idQuizzUser) {
     document.querySelector("main .Tela3_2").classList.add("Desaparece");
     document.querySelector("main .Tela3_3").classList.remove("Desaparece");
 
+    // Armazenando dados no computador
+    guardaQuizzLocal(idQuizzUser);
+
+    //colocar o quizz enviado
+
 }
-// ----------------------------------------------------------- Criando Quizz (checando dados das infos)
+
+
+// ------------------------------------------- Função utilizada para informar o usuário no 
+// ------------------------------------------- caso dos dados inseridos serem inválidos
+
 
 function DadosInválidos() {
     alert("Dados inválidos, preencha os dados corretamente!");
 }
+
+
+// ------------------------------------------- Criando Quizz (Check dados das infos iniciais)
+// ------------------------------------------- onclick botão pt1
+
 
 function VerificarInformacoesBasicasPergunta() {
     const tamanhoTitulo = document.querySelector(".Tela3 .TituloQuizz").value.length;
@@ -199,12 +236,16 @@ function VerificarInformacoesBasicasPergunta() {
 }
 
 
-// ----------------------------------------------------------- Criando Quizz (checando dados das perguntas)
+// ------------------------------------------- Criando Quizz (Check dados das perguntas inseridas)
+// ------------------------------------------- onclick botão pt2
 
 function VerificarPerguntasQuizz() {
+    // Limpa as variáveis utilizadas no caso de retornar após um erro
     questions = [];
     qtdRespostasAdd = 0;
     qtdUrlRespostas = 0;
+
+    // Armazenando os dados fornecidos pelo usuário em uma array de objetos
     for (let i = 1; i <= qtdPerguntas; i++) {
 
         document.querySelectorAll(`.pergunta${i} .textoPergunta`).forEach((element) => {
@@ -247,8 +288,7 @@ function VerificarPerguntasQuizz() {
         }
     };
 
-    console.log(questions);
-
+    // Condicionamento requisitado para as perguntas do quizz
     let condicaoPergunta = [];
     const checkTextoPergunta = questions.filter((t) =>
         t.text.length >= 20).length === qtdPerguntas;
@@ -265,10 +305,7 @@ function VerificarPerguntasQuizz() {
         qtdUrlRespostas = qtdUrlRespostas + aumenta;
     }
     const checkUrlPergunta = qtdUrlRespostas === qtdRespostasAdd;
-    
     condicaoPergunta.push(checkTextoPergunta, checkColorPergunta, checkUrlPergunta);
-    console.log(condicaoPergunta);
-
     condicaoPergunta = condicaoPergunta.filter(elemento => elemento === false).length === 0;
     if (condicaoPergunta) {
         criarQuizz.questions = questions;
@@ -278,15 +315,23 @@ function VerificarPerguntasQuizz() {
     }
 }
 
+
+// ------------------------------------------- Criando Quizz (Check dados dos niveis inseridos)
+// ------------------------------------------- onclick botão pt3
+
+
 function VerificarNiveisQuizz() {
+    // Limpa as variáveis utilizadas no caso de retornar após um erro
     levels = [];
 
+    // Verifica se todos os dados foram preenchidos
     document.querySelectorAll(".NiveisQuizz .divsInfo").forEach((element) => {
         if (element.value === "") {
             return DadosInválidos();
         }
     });
 
+    // Armazenando os dados fornecidos pelo usuário em uma array de objetos
     for (let i = 1; i <= qtdNiveis; i++) {
         levels.push({
             title: document.querySelector(`.nivel${i} .tituloNivel`).value,
@@ -296,6 +341,7 @@ function VerificarNiveisQuizz() {
         })
     }
 
+    // Condicionamento requisitado para os niveis do quizz
     let condicaoNivel = [];
     const checkTituloNivel = levels.filter(titulo =>
         titulo.title.length > 10).length === qtdNiveis;
@@ -314,27 +360,40 @@ function VerificarNiveisQuizz() {
         return true;
     }).length === qtdNiveis;
     condicaoNivel.push(checkTituloNivel, checkTextoNivel, checkNumZeroNivel, checkValoresNivel, checkUrlNivel);
-    console.log(condicaoNivel);
     condicaoNivel = condicaoNivel.filter(elemento => elemento === false).length === 0;
     if (condicaoNivel) {
         criarQuizz.levels = levels;
-        //CriarQuiz();
+        CriarQuiz();
     } else {
         return DadosInválidos();
     }
-
 }
+
+
+// ------------------------------------------- Criando Quizz (Envia os dados do quizz para o servidor)
+
 
 function CriarQuiz() {
-    console.log(quizz);
-    /*axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", quizz)
-    .then(CarregarTela3_3)
-    .catch(ErroRenderQuizzes)*/
+    console.log(criarQuizz);
+    idQuizzUser = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz);
+    idQuizzUser.then(CarregarTela3_3(idQuizzUser));
+    idQuizzUser.catch(ErroRenderQuizzes);
 }
 
-function guardaRespostas() {
 
+// ------------------------------------------- Criando Quizz (Salva os dados do quizz no computador do usuário)
+
+
+function guardaQuizzLocal(idQuizzUser) {
+    quizzUserIds.push(idQuizzUser);
+    quizzUserIdsSerializado = JSON.stringify(quizzUserIds);
+    console.log(quizzUserIds); // ----------------------------------------- Remover DEPOIS
+    localStorage.setItem("idQuizzUser", quizzUserIdsSerializado);
 }
+
+
+// ------------------------------------------- 
+
 
 function Erro() {
     console.log("erro carregar tela1");
