@@ -195,7 +195,7 @@ function CarregarTela3_3(idQuizzUser) {
     document.querySelector("main .Tela3_3").classList.remove("Desaparece");
 
     // Armazenando dados no computador
-    guardaQuizzLocal(idQuizzUser);
+    guardaQuizzLocal(idQuizzUser.data);
 
     //colocar o quizz enviado
 
@@ -376,8 +376,8 @@ function VerificarNiveisQuizz() {
 
 
 function CriarQuiz() {
-    idQuizzUser = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz);
-    idQuizzUser.then(CarregarTela3_3(idQuizzUser));
+    const idQuizzUser = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz);
+    idQuizzUser.then(CarregarTela3_3());
     idQuizzUser.catch(ErroRenderQuizzes);
 }
 
