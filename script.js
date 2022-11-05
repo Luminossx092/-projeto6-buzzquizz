@@ -251,7 +251,7 @@ function VerificarPerguntasQuizz() {
         document.querySelectorAll(`.pergunta${i} .textoPergunta`).forEach((element) => {
             if (element.value !== "") {
                 questions.push({
-                    text: element.value,
+                    title: element.value,
                     color: element.nextElementSibling.value
                 })
             }
