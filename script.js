@@ -291,7 +291,7 @@ function VerificarPerguntasQuizz() {
     // Condicionamento requisitado para as perguntas do quizz
     let condicaoPergunta = [];
     const checkTextoPergunta = questions.filter((t) =>
-        t.text.length >= 20).length === qtdPerguntas;
+        t.title.length >= 20).length === qtdPerguntas;
     const checkColorPergunta = questions.filter((c) =>
         c.color.match(/^#([0-9A-F]{3}){1,2}$/g)).length === qtdPerguntas;
     for (let i = 0; i < qtdPerguntas; i++) {
