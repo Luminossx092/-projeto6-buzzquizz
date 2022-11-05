@@ -9,22 +9,19 @@ let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
 
 const minTextoPergunta = 20;
 
-
 // Verificando se o usuário possui algum quizz
-
 if (localStorage.getItem("idQuizzUser") === null) {
-    quizzUserIds =[];
+    quizzUserIds = [];
 } else {
     quizzUserIds = JSON.parse(localStorage.getItem("idQuizzUser"));
 }
 
-
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
+    document.querySelector("main .Tela3_3").classList.add("Desaparece");
     document.querySelector("main .Tela2").classList.add("Desaparece");
     document.querySelector("main .Tela1").classList.remove("Desaparece");
-
-    listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("QuizzesSalvos"));
+    listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("idQuizzUser"));
     if (listaIdDeQuizzUsuario == null) {
         document.querySelector(".Tela1 .DivBotaoCriarQuizz").classList.remove("Desaparece");
     }
@@ -84,6 +81,11 @@ function AbrirQuizz(idQuizz) {
     idQuizzAtual = idQuizz;
     document.querySelector("main .Tela1").classList.add("Desaparece");
     CarregarTela2(idQuizz);
+}
+
+function AbrirQuizzCriado(){
+    document.querySelector("main .Tela3_3").classList.add("Desaparece");
+    AbrirQuizz(idQuizzUser);
 }
 
 function CarregarTela2(id) {
@@ -374,7 +376,6 @@ function VerificarNiveisQuizz() {
 
 
 function CriarQuiz() {
-    console.log(criarQuizz);
     idQuizzUser = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz);
     idQuizzUser.then(CarregarTela3_3(idQuizzUser));
     idQuizzUser.catch(ErroRenderQuizzes);
@@ -396,7 +397,7 @@ function guardaQuizzLocal(idQuizzUser) {
 
 
 function Erro() {
-    console.log("erro carregar tela1");
+    console.log("erro carregar tela");
 }
 
 let qtdDeAcertos = 0; // Quantidade de quizzes que o usuario acertou
