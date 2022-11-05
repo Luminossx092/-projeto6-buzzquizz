@@ -2,19 +2,16 @@
 
 let quantidadePerguntas, qtdNiveis, criaTituloQuizz,
     listaIdDeQuizzUsuario, perguntas, niveis,
-    urlQuizzCriado, criarQuizz = {}, idQuizzUser,
+    urlQuizzCriado, criarQuizz = {},
     criaTextoPergunta, criaCorPergunta, answers = [],
     questions = [], idQuizzAtual, levels = [],
-    qtdUrlRespostas = 0, qtdRespostasAdd = 0, quizzUserIds;
+    qtdUrlRespostas = 0, qtdRespostasAdd = 0, quizzUserIds = [];
 
 const minTextoPergunta = 20;
 
-// Verificando se o usuário possui algum quizz
-if (localStorage.getItem("idQuizzUser") === null) {
-    quizzUserIds = [];
-} else {
-    quizzUserIds = JSON.parse(localStorage.getItem("idQuizzUser"));
-}
+
+
+
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
@@ -83,7 +80,7 @@ function AbrirQuizz(idQuizz) {
     CarregarTela2(idQuizz);
 }
 
-function AbrirQuizzCriado(){
+function AbrirQuizzCriado() {
     document.querySelector("main .Tela3_3").classList.add("Desaparece");
     AbrirQuizz(idQuizzUser);
 }
@@ -190,14 +187,26 @@ function CarregarTela3_2() {
 // ------------------------------------------- com o quiz criado pronto para ser testado
 
 
-function CarregarTela3_3(idQuizzUser) {
+function CarregarTela3_3(quizzCriado) {
+    const idQuizzUser = quizzCriado.id;
+    console.log(quizzCriado)
     document.querySelector("main .Tela3_2").classList.add("Desaparece");
     document.querySelector("main .Tela3_3").classList.remove("Desaparece");
 
     // Armazenando dados no computador
-    guardaQuizzLocal(idQuizzUser.data);
+    guardaQuizzLocal(idQuizzUser);
 
     //colocar o quizz enviado
+
+    document.querySelector(".FinalizadoQuizz").innerHTML = "".innerHTML = `
+            <li id="${quizzCriado.id}" onclick="AbrirQuizz(id)" class="QuizzTela1">
+                <figure>
+                    <img src="${quizzCriado.image}" alt="Imagem Indisponivel">
+                </figure>
+                <p>${quizzCriado.title}</p>
+            </li>
+        `
+
 
 }
 
@@ -376,20 +385,28 @@ function VerificarNiveisQuizz() {
 
 
 function CriarQuiz() {
-    const idQuizzUser = axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz);
-    idQuizzUser.then(CarregarTela3_3());
-    idQuizzUser.catch(ErroRenderQuizzes);
+    axios.post("https://mock-api.driven.com.br/api/v4/buzzquizz/quizzes", criarQuizz)
+        .then((resposta) => {
+            CarregarTela3_3(resposta.data);
+            console.log(resposta.data.id);
+        })
+        .catch(ErroRenderQuizzes);
 }
 
 
 // ------------------------------------------- Criando Quizz (Salva os dados do quizz no computador do usuário)
 
 
-function guardaQuizzLocal(idQuizzUser) {
-    quizzUserIds.push(idQuizzUser);
+function guardaQuizzLocal(idQuizzCriado) {
+    // Verificando se o usuário possui algum quizz
+    if (localStorage.getItem("idQuizzUser") !== "null") {
+        quizzUserIds = JSON.parse(localStorage.getItem("idQuizzUser"));
+    }
+
+    quizzUserIds.push(idQuizzCriado);
     quizzUserIdsSerializado = JSON.stringify(quizzUserIds);
-    console.log(quizzUserIds); // ----------------------------------------- Remover DEPOIS
-    localStorage.setItem("idQuizzUser", quizzUserIdsSerializado);
+    console.log(quizzUserIdsSerializado)
+    //localStorage.setItem("idQuizzUser", quizzUserIdsSerializado);
 }
 
 
