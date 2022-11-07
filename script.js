@@ -11,7 +11,8 @@ const minTextoPergunta = 20;
 
 
 
-
+listaIdDeQuizzUsuario = JSON.parse(localStorage.getItem("idQuizzUser"));
+console.log(listaIdDeQuizzUsuario);
 
 //Carrega a primeira tela, pede os quizz do servidor
 function CarregarTela1() {
@@ -39,7 +40,7 @@ CarregarTela1();
 
 function RenderizarUltimosXQuizzesServidor(resposta) {
     //escolhe quantos elementos aparecer na tela1
-    const index = 6;
+    const index = resposta.data.length;
     const listaQuizzes = document.querySelector("main .ListaQuizzes ul");
     listaQuizzes.innerHTML = "";
     const quizz = resposta.data;
